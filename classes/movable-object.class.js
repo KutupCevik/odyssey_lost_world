@@ -20,7 +20,7 @@ class MovableObject {
         move.forEach((path) => {
             let img = new Image();
             this.img.src = path;
-            this.imageCache[path] = path;
+            this.imageCache[path] = img;
         });
     }
 
