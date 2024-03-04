@@ -3,6 +3,7 @@ const level1 = new Level(
         new Skeleton(),
         new Skeleton(),
         new Skeleton(),
+        // new Endboss(),
     ],
     [
         new Cloud(),
