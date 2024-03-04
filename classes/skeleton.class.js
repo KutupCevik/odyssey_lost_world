@@ -12,12 +12,12 @@ class Skeleton extends MovableObject {
         'img/enemies/Skeleton/Walk-7.png',
         'img/enemies/Skeleton/Walk-8.png',
     ];
-    currentImage = 0;
 
     constructor() {
         super().loadImage('img/enemies/Skeleton/Walk-1.png')
         this.loadImages(this.IMAGES_WALKING);
         this.x = 100 + Math.random() * 500;
+        this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
     }
 
@@ -28,5 +28,6 @@ class Skeleton extends MovableObject {
             this.img = this.imageCache[path];
             this.currentImage++;
         }, 100);
+        this.moveLeft();
     }
 }
