@@ -1,9 +1,10 @@
 class Endboss extends MovableObject {
-    y = 245;
-    height = 236;
-    width = 350;
-    IMAGES_IDLE = [
-        'img/enemie_boss/Troll1/Idle_000.png',
+    y = -50;
+    x = 200;
+    height = 650;
+    width = 650;
+    IMAGES_IDLE0 = [
+        'img/enemie_boss/dragon/Idle1.png',
         'img/enemie_boss/Troll1/Idle_001.png',
         'img/enemie_boss/Troll1/Idle_002.png',
         'img/enemie_boss/Troll1/Idle_003.png',
@@ -14,25 +15,25 @@ class Endboss extends MovableObject {
         'img/enemie_boss/Troll1/Idle_008.png',
         'img/enemie_boss/Troll1/Idle_009.png',
     ];
+    IMAGES_IDLE = [
+        'img/enemie_boss/dragon/Idle1.png',
+        'img/enemie_boss/dragon/Idle2.png',
+        'img/enemie_boss/dragon/Idle3.png',
+        'img/enemie_boss/dragon/Idle4.png',
+    ];
 
 
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
+        // this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_IDLE);
-
         this.animate();
     }
 
+
     animate() {
         setInterval(() => {
-            if (this.world.keyboard.RIGHT == false && this.world.keyboard.LEFT == false) {
-                let i = this.currentImage % this.IMAGES_IDLE.length;
-                let path = this.IMAGES_IDLE[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
-            }
-        }, 100);
+            this.playAnimations(this.IMAGES_IDLE);
+    }, 200);
     }
-
-    jump() {}
 }
