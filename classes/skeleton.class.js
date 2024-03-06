@@ -44,7 +44,6 @@ class Skeleton extends MovableObject {
             this.moveLeft();
             if (this.isDead()) {
                 clearInterval(sixtyFPS);
-                this.dead(this.IMAGES_DEAD);
             }
         }, 1000 / 60);
         
@@ -56,6 +55,7 @@ class Skeleton extends MovableObject {
             }
             if (this.isDead()) {
                 clearInterval(move);
+                this.dead(this.IMAGES_DEAD);
             }
         }, 100);
     }

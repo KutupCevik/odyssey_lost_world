@@ -10,6 +10,7 @@ class Character extends MovableObject {
         right: 70,
         bottom: 0,
     };
+    // energy = 100;
 
     IMAGES_IDLE = [
         'img/2_character/Archer/1_idle/Idle-1.png',
@@ -105,8 +106,6 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 30;
             if (this.isDead()) {
                 clearInterval(sixtyFPS);
-                clearInterval(idle);
-                this.dead(this.IMAGES_DEAD);
                 this.walking_sound.pause();
             }
         }, 1000 / 60);
@@ -130,6 +129,7 @@ class Character extends MovableObject {
             }
             if (this.isDead()) {
                 clearInterval(idle);
+                this.dead(this.IMAGES_DEAD);
             }
         }, 100);
     }

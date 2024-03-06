@@ -4,7 +4,6 @@ class MovableObject extends DrawableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 3;
-    energy = 10;
     lastHit = 0;
     offset = {
         top: 0,
