@@ -79,6 +79,7 @@ class World {
         }
         mO.draw(this.ctx);
         mO.drawFrame(this.ctx);
+        mO.drawCollisonFrame(this.ctx);
 
         if (mO.otherDirection) {
             this.flipImageBack(mO);

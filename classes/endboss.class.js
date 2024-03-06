@@ -3,6 +3,13 @@ class Endboss extends MovableObject {
     x = 200;
     height = 650;
     width = 650;
+    firstContact = false;
+    offset = {
+        top: 330,
+        left: 130,
+        right: 130,
+        bottom: 170,
+    };
     IMAGES_IDLE0 = [
         'img/enemie_boss/dragon/Idle1.png',
         'img/enemie_boss/Troll1/Idle_001.png',
@@ -21,8 +28,6 @@ class Endboss extends MovableObject {
         'img/enemie_boss/dragon/Idle3.png',
         'img/enemie_boss/dragon/Idle4.png',
     ];
-    firstContact = false;
-
 
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);

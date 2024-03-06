@@ -32,6 +32,16 @@ class DrawableObject {
         }
     }
 
+    drawCollisonFrame(ctx) {
+        if (this instanceof Character || this instanceof Skeleton || this instanceof Endboss) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'red';
+            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - (this.offset.right + this.offset.left), this.height - (this.offset.bottom + this.offset.top));
+            ctx.stroke();
+        }
+    }
+
     /**
  * 
  * @param {Array} move - img's
