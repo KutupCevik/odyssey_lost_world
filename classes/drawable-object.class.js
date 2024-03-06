@@ -14,7 +14,12 @@ class DrawableObject {
     }
 
     draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        try {
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        } catch (e) {
+            console.warn('Error loading Image');
+            console.log('Could not load image: ', this.img.src);
+        }
     }
 
     drawFrame(ctx) {
@@ -27,15 +32,15 @@ class DrawableObject {
         }
     }
 
-        /**
-     * 
-     * @param {Array} move - img's
-     */
-        loadImages(move) {
-            move.forEach((path) => {
-                let img = new Image();
-                img.src = path;
-                this.imageCache[path] = img;
-            });
-        }
+    /**
+ * 
+ * @param {Array} move - img's
+ */
+    loadImages(move) {
+        move.forEach((path) => {
+            let img = new Image();
+            img.src = path;
+            this.imageCache[path] = img;
+        });
+    }
 }
