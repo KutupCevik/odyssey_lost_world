@@ -33,9 +33,9 @@ class DrawableObject {
     }
 
     drawCollisonFrame(ctx) {
-        if (this instanceof Character || this instanceof Skeleton || this instanceof Endboss) {
+        if (this instanceof Character || this instanceof Skeleton || this instanceof Endboss || this instanceof ThrowableObject) {
             ctx.beginPath();
-            ctx.lineWidth = '5';
+            ctx.lineWidth = '3';
             ctx.strokeStyle = 'red';
             ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - (this.offset.right + this.offset.left), this.height - (this.offset.bottom + this.offset.top));
             ctx.stroke();

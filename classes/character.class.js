@@ -12,55 +12,71 @@ class Character extends MovableObject {
     };
 
     IMAGES_IDLE = [
-        'img/chibi-male-sprites/Archer/1_idle/Idle-1.png',
-        'img/chibi-male-sprites/Archer/1_idle/Idle-2.png',
-        'img/chibi-male-sprites/Archer/1_idle/Idle-3.png',
-        'img/chibi-male-sprites/Archer/1_idle/Idle-4.png',
-        'img/chibi-male-sprites/Archer/1_idle/Idle-5.png',
-        'img/chibi-male-sprites/Archer/1_idle/Idle-6.png',
+        'img/2_character/Archer/1_idle/Idle-1.png',
+        'img/2_character/Archer/1_idle/Idle-2.png',
+        'img/2_character/Archer/1_idle/Idle-3.png',
+        'img/2_character/Archer/1_idle/Idle-4.png',
+        'img/2_character/Archer/1_idle/Idle-5.png',
+        'img/2_character/Archer/1_idle/Idle-6.png',
     ];
     IMAGES_IDLE_2 = [
-        'img/chibi-male-sprites/Archer/1_idle/Idle_2-2.png',
-        'img/chibi-male-sprites/Archer/1_idle/Idle_2-3.png',
-        'img/chibi-male-sprites/Archer/1_idle/Idle_2-4.png',
-        'img/chibi-male-sprites/Archer/1_idle/Idle_2-1.png',
-        'img/chibi-male-sprites/Archer/1_idle/Idle_2-1.png',
+        'img/2_character/Archer/1_idle/Idle_2-2.png',
+        'img/2_character/Archer/1_idle/Idle_2-3.png',
+        'img/2_character/Archer/1_idle/Idle_2-4.png',
+        'img/2_character/Archer/1_idle/Idle_2-1.png',
+        'img/2_character/Archer/1_idle/Idle_2-1.png',
     ];
     IMAGES_WALKING = [
-        'img/chibi-male-sprites/Archer/2_walk/Walk-1.png',
-        'img/chibi-male-sprites/Archer/2_walk/Walk-2.png',
-        'img/chibi-male-sprites/Archer/2_walk/Walk-3.png',
-        'img/chibi-male-sprites/Archer/2_walk/Walk-4.png',
-        'img/chibi-male-sprites/Archer/2_walk/Walk-5.png',
-        'img/chibi-male-sprites/Archer/2_walk/Walk-6.png',
-        'img/chibi-male-sprites/Archer/2_walk/Walk-7.png',
-        'img/chibi-male-sprites/Archer/2_walk/Walk-8.png',
+        'img/2_character/Archer/2_walk/Walk-1.png',
+        'img/2_character/Archer/2_walk/Walk-2.png',
+        'img/2_character/Archer/2_walk/Walk-3.png',
+        'img/2_character/Archer/2_walk/Walk-4.png',
+        'img/2_character/Archer/2_walk/Walk-5.png',
+        'img/2_character/Archer/2_walk/Walk-6.png',
+        'img/2_character/Archer/2_walk/Walk-7.png',
+        'img/2_character/Archer/2_walk/Walk-8.png',
     ];
     IMAGES_JUMP = [
-        'img/chibi-male-sprites/Archer/3_jump/Jump-1.png',
-        'img/chibi-male-sprites/Archer/3_jump/Jump-2.png',
-        'img/chibi-male-sprites/Archer/3_jump/Jump-3.png',
-        'img/chibi-male-sprites/Archer/3_jump/Jump-4.png',
-        'img/chibi-male-sprites/Archer/3_jump/Jump-5.png',
-        'img/chibi-male-sprites/Archer/3_jump/Jump-6.png',
-        'img/chibi-male-sprites/Archer/3_jump/Jump-7.png',
-        'img/chibi-male-sprites/Archer/3_jump/Jump-8.png',
-        'img/chibi-male-sprites/Archer/3_jump/Jump-9.png',
+        'img/2_character/Archer/3_jump/Jump-1.png',
+        'img/2_character/Archer/3_jump/Jump-2.png',
+        'img/2_character/Archer/3_jump/Jump-3.png',
+        'img/2_character/Archer/3_jump/Jump-4.png',
+        'img/2_character/Archer/3_jump/Jump-5.png',
+        'img/2_character/Archer/3_jump/Jump-6.png',
+        'img/2_character/Archer/3_jump/Jump-7.png',
+        'img/2_character/Archer/3_jump/Jump-8.png',
+        'img/2_character/Archer/3_jump/Jump-9.png',
+    ];
+    IMAGES_ATTACK = [
+        'img/2_character/Archer/6_Attack/Shot-1.png',
+        'img/2_character/Archer/6_Attack/Shot-2.png',
+        'img/2_character/Archer/6_Attack/Shot-3.png',
+        'img/2_character/Archer/6_Attack/Shot-4.png',
+        'img/2_character/Archer/6_Attack/Shot-5.png',
+        'img/2_character/Archer/6_Attack/Shot-6.png',
+        'img/2_character/Archer/6_Attack/Shot-7.png',
+        'img/2_character/Archer/6_Attack/Shot-8.png',
+        'img/2_character/Archer/6_Attack/Shot-9.png',
+        'img/2_character/Archer/6_Attack/Shot-10.png',
+        'img/2_character/Archer/6_Attack/Shot-11.png',
+        'img/2_character/Archer/6_Attack/Shot-12.png',
+        'img/2_character/Archer/6_Attack/Shot-13.png',
+        'img/2_character/Archer/6_Attack/Shot-14.png',
     ];
     IMAGES_HURT = [
-        'img/chibi-male-sprites/Archer/4_hurt/Hurt-1.png',
-        'img/chibi-male-sprites/Archer/4_hurt/Hurt-2.png',
-        'img/chibi-male-sprites/Archer/4_hurt/Hurt-3.png',
+        'img/2_character/Archer/4_hurt/Hurt-1.png',
+        'img/2_character/Archer/4_hurt/Hurt-2.png',
+        'img/2_character/Archer/4_hurt/Hurt-3.png',
     ];
     IMAGES_DEAD = [
-        'img/chibi-male-sprites/Archer/5_dead/Dead-1.png',
-        'img/chibi-male-sprites/Archer/5_dead/Dead-2.png',
-        'img/chibi-male-sprites/Archer/5_dead/Dead-3.png',
+        'img/2_character/Archer/5_dead/Dead-1.png',
+        'img/2_character/Archer/5_dead/Dead-2.png',
+        'img/2_character/Archer/5_dead/Dead-3.png',
     ];
     // switchImages = false;
 
     constructor() {
-        super().loadImage('img/chibi-male-sprites/Archer/1_idle/Idle-1.png');
+        super().loadImage(this.IMAGES_IDLE[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_IDLE_2);
@@ -90,7 +106,8 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 clearInterval(sixtyFPS);
                 clearInterval(idle);
-                this.dead();
+                this.dead(this.IMAGES_DEAD);
+                this.walking_sound.pause();
             }
         }, 1000 / 60);
 
@@ -115,14 +132,5 @@ class Character extends MovableObject {
                 clearInterval(idle);
             }
         }, 100);
-    }
-    dead() {
-        let deadInterval = setInterval(() => {
-            this.playAnimations(this.IMAGES_DEAD);
-            if (this.currentImage >= this.IMAGES_DEAD.length) {
-                clearInterval(deadInterval);
-            }
-        }, 100);
-        this.walking_sound.pause();
     }
 }

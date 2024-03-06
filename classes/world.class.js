@@ -31,7 +31,7 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.F) {
+        if (this.keyboard.F && !this.character.isDead()) {
             let arrow = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(arrow)
         }

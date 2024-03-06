@@ -6,14 +6,20 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.height = 100;
         this.width = 100;
+        this.offset = {
+            top: 50,
+            left: 80,
+            right: 0,
+            bottom: 45,
+        };
         this.trow();
     }
 
     trow() {
-        this.speedY = 30;
+        this.speedY = 10;
         this.applyGravity();
         setInterval(() => {
-            this.x += 10;
+            this.x += 30;
         }, 20);
     }
 }

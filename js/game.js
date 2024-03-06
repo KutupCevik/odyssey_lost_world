@@ -12,6 +12,7 @@ window.addEventListener('keydown', (e) => {
     console.log(e.code);
     if (e.code == 'KeyW' || e.code == 'ArrowUp') {
         keyboard.UP = true;
+        e.preventDefault();
     }
     if (e.code == 'KeyA' || e.code == 'ArrowLeft') {
         keyboard.LEFT = true;
@@ -25,6 +26,7 @@ window.addEventListener('keydown', (e) => {
     if (e.code == 'Space') {
         keyboard.SPACE = true;
         keyboard.UP = true;
+        e.preventDefault();
     }
     if (e.code == 'KeyF') {
         keyboard.F = true;

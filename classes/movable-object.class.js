@@ -58,6 +58,17 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
+    dead(deadImgs) {
+        this.currentImage = 0;
+        let deadInterval = setInterval(() => {
+            this.playAnimations(deadImgs);
+            if (this.currentImage >= deadImgs.length) {
+                clearInterval(deadInterval);
+            }
+        }, 100);
+        // this.walking_sound.pause();
+    }
+
     playAnimations(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
