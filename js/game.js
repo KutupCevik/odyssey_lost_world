@@ -19,6 +19,7 @@ window.addEventListener('keydown', (e) => {
     }
     if (e.code == 'KeyS' || e.code == 'ArrowDown') {
         keyboard.DOWN = true;
+        e.preventDefault();
     }
     if (e.code == 'KeyD' || e.code == 'ArrowRight') {
         keyboard.RIGHT = true;
