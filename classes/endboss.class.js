@@ -1,5 +1,5 @@
 class Endboss extends MovableObject {
-    y = -50;
+    y = -30;
     x = 200;
     height = 650;
     width = 650;
@@ -21,19 +21,29 @@ class Endboss extends MovableObject {
         'img/enemie_boss/dragon/Idle3.png',
         'img/enemie_boss/dragon/Idle4.png',
     ];
+    firstContact = false;
 
 
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
-        // this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_IDLE);
         this.animate();
     }
 
 
     animate() {
+        let i = 0;
         setInterval(() => {
-            this.playAnimations(this.IMAGES_IDLE);
-    }, 200);
+            if (i < 10) {
+                this.playAnimations(this.IMAGES_IDLE);
+            } else {
+                this.playAnimations(this.IMAGES_IDLE);
+            }
+            i++;
+            if (world.character.x > 1400 && !firstContact) {
+                i = 0;
+                firstContact = true;
+            }
+        }, 200);
     }
 }

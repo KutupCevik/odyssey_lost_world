@@ -5,6 +5,8 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
+    statusBar = new StatusBar;
+    throwableObjects = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -12,10 +14,35 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.run();
     }
 
     setWorld() {
         this.character.world = this;
+    }
+
+    run() {
+        setInterval(() => {
+            this.checkCollisions();
+            this.checkThrowObjects();
+        }, 1000);
+    }
+
+    checkThrowObjects() {
+        if (this.keyboard.F) {
+            let arrow = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            this.throwableObjects.push(arrow)
+        }
+    }
+
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                console.log(enemy);
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+            }
+        });
     }
 
     draw() {
@@ -24,7 +51,14 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
+
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0);
+
+
         this.ctx.translate(-this.camera_x, 0);
         requestAnimationFrame(() => {
             this.draw();
@@ -39,15 +73,25 @@ class World {
 
     addToMap(mO) {
         if (mO.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(mO.width, 0);
-            this.ctx.scale(-1, 1);
-            mO.x = mO.x * -1;
+            this.flipImage(mO);
         }
-        this.ctx.drawImage(mO.img, mO.x, mO.y, mO.width, mO.height)
+        mO.draw(this.ctx);
+        mO.drawFrame(this.ctx);
+
         if (mO.otherDirection) {
-            mO.x = mO.x * -1;
-            this.ctx.restore();
+            this.flipImageBack(mO);
         }
+    }
+
+    flipImage(mO) {
+        this.ctx.save();
+        this.ctx.translate(mO.width, 0);
+        this.ctx.scale(-1, 1);
+        mO.x = mO.x * -1;
+    }
+
+    flipImageBack(mO) {
+        mO.x = mO.x * -1;
+        this.ctx.restore();
     }
 }

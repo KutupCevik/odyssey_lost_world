@@ -1,5 +1,5 @@
 class Skeleton extends MovableObject {
-    y = 245;
+    y = 265;
     height = 180;
     width = 180;
     IMAGES_WALKING = [
@@ -28,6 +28,8 @@ class Skeleton extends MovableObject {
             this.img = this.imageCache[path];
             this.currentImage++;
         }, 100);
-        this.moveLeft();
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60)
     }
 }

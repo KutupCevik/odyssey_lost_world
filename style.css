@@ -10,8 +10,27 @@ body {
 
 canvas {
     background-color: black;
+    display: block;
 }
 
 h1 {
     color: green;
+}
+
+.story {
+    color: green;
+    font-size: 18px;
+    max-width: 700px;
+}
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
 }
