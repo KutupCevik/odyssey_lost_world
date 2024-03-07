@@ -5,7 +5,7 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    statusBar = new StatusBar;
+    statusBar = new StatusBar();
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -41,12 +41,12 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 console.log(enemy);
-                this.character.hit();
+                this.character.hit(20);
                 this.statusBar.setPercentage(this.character.energy);
             }
             this.throwableObjects.forEach(arrow => {
                 if (enemy.isColliding(arrow)) {
-                    enemy.hit();
+                    enemy.hit(20);
                     this.removeThrowObjects(arrow);
                 }
             });

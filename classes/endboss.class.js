@@ -10,7 +10,6 @@ class Endboss extends MovableObject {
         right: 130,
         bottom: 170,
     };
-    energy = 300;
     IMAGES_IDLE = [
         'img/4_enemie_boss/dragon/Idle1.png',
         'img/4_enemie_boss/dragon/Idle2.png',

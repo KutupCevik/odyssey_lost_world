@@ -2,6 +2,7 @@ class Skeleton extends MovableObject {
     y = 265;
     height = 180;
     width = 180;
+    energy = 10;
     offset = {
         top: 85,
         left: 60,
