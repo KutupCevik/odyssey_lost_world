@@ -24,15 +24,15 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
-        }, 800);
+        }, 25);
         setInterval(() => {
             this.checkThrowObjects();
-        }, 100);
+        }, 550);
     }
 
     checkThrowObjects() {
         if (this.keyboard.F && !this.character.isDead()) {
-            let arrow = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            let arrow = new ThrowableObject(this.character.x + 50, this.character.y + 110);
             this.throwableObjects.push(arrow)
         }
     }
@@ -44,7 +44,20 @@ class World {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
+            this.throwableObjects.forEach(arrow => {
+                if (enemy.isColliding(arrow)) {
+                    enemy.hit();
+                    this.removeThrowObjects(arrow);
+                }
+            });
         });
+    }
+
+    removeThrowObjects(arrow) {
+        const i = this.throwableObjects.indexOf(arrow);
+        if (i !== -1) {
+            this.throwableObjects.splice(i, 1);
+        }
     }
 
     draw() {

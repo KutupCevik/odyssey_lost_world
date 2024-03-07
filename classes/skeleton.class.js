@@ -41,7 +41,9 @@ class Skeleton extends MovableObject {
 
     animate() {
         let sixtyFPS = setInterval(() => {
+            if (!this.isHurt()) {
             this.moveLeft();
+            }
             if (this.isDead()) {
                 clearInterval(sixtyFPS);
             }

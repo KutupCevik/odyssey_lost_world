@@ -6,7 +6,6 @@ class DrawableObject {
     img;
     imageCache = {};
     currentImage = 0;
-    energy = 100;
 
     loadImage(path, paralax) {
         this.img = new Image();

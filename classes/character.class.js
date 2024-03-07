@@ -82,6 +82,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_IDLE_2);
         this.loadImages(this.IMAGES_JUMP);
+        this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.applyGravity();
@@ -127,10 +128,19 @@ class Character extends MovableObject {
             if (this.isHurt()) {
                 this.playAnimations(this.IMAGES_HURT);
             }
+            if (this.world.keyboard.F && !this.isDead()) {
+                this.playAnimations(this.IMAGES_ATTACK);
+            }
             if (this.isDead()) {
                 clearInterval(idle);
                 this.dead(this.IMAGES_DEAD);
+                setTimeout(() => {
+                this.clearAllIntervals();
+                }, 1000);
             }
         }, 100);
+    }
+    clearAllIntervals() {
+        for (let i = 1; i < 9999; i++) window.clearInterval(i);
     }
 }
