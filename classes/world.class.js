@@ -5,7 +5,33 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    statusBar = new StatusBar();
+    healthBarImgs = [
+        'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png',
+    ];
+    arrowBarImgs = [
+        'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/0.png',
+        'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/20.png',
+        'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/40.png',
+        'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/60.png',
+        'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/80.png',
+        'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png',
+    ];
+    coinBarImgs = [
+        'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/0.png',
+        'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/20.png',
+        'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/40.png',
+        'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/60.png',
+        'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/80.png',
+        'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/100.png',
+    ];
+    healthBar = new StatusBar(this.healthBarImgs, 0, 100);
+    arrowBar = new StatusBar(this.arrowBarImgs, 50, 0);
+    coinBar = new StatusBar(this.coinBarImgs, 100, 0);
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -41,12 +67,21 @@ class World {
         }
     }
 
+    // this.character.isAboveGround()
+    // && this.character.speedY < 0 
+    // (this.character.y + this.character.height - this.character.offset.bottom >= enemy.y + enemy.offset.top - 15 &&
+    // this.character.y + this.character.height - this.character.offset.bottom <= enemy.y + enemy.offset.top + 15)
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !enemy.isDead()) {
-                console.log(enemy);
-                this.character.hit(20);
-                this.statusBar.setPercentage(this.character.energy);
+            if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isHurt()) {
+                if (this.character.y + this.character.height - this.character.offset.bottom >= enemy.y + enemy.offset.top - 15 &&
+                    this.character.y + this.character.height - this.character.offset.bottom <= enemy.y + enemy.offset.top + 15) {
+                    enemy.hit(20);
+                    this.character.jump(20);
+                } else {
+                    this.character.hit(10);
+                    this.healthBar.setPercentage(this.character.energy, this.healthBarImgs);
+                }
             }
             this.throwableObjects.forEach(arrow => {
                 if (enemy.isColliding(arrow) && !enemy.isDead()) {
@@ -74,7 +109,9 @@ class World {
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBar);
+        this.addToMap(this.healthBar);
+        this.addToMap(this.arrowBar);
+        this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0);
 
 

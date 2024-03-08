@@ -89,8 +89,8 @@ class MovableObject extends DrawableObject {
         this.x -= this.speed;
     }
 
-    jump() {
-        this.speedY = 30;
+    jump(jumpHeight) {
+        this.speedY = jumpHeight;
     }
 
     changePlaybackRate(sound, rate) {

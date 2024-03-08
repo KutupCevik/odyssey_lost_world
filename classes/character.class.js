@@ -10,7 +10,7 @@ class Character extends MovableObject {
         right: 70,
         bottom: 0,
     };
-    energy = 100000;
+    energy = 100;
 
     IMAGES_IDLE = [
         'img/2_character/Archer/1_idle/Idle-1.png',
@@ -123,7 +123,7 @@ class Character extends MovableObject {
                     this.playAnimations(this.IMAGES_WALKING);
                 }
                 if (this.world.keyboard.UP && !this.isAboveGround()) {
-                    this.jump();
+                    this.jump(30);
                 }
             }
             if (this.isHurt()) {

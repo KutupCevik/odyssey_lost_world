@@ -6,7 +6,7 @@ class Endboss extends MovableObject {
     world;
     firstContact = false;
     offset = {
-        top: 330,
+        top: 360,
         left: 130,
         right: 130,
         bottom: 170,
