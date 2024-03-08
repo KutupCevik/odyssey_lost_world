@@ -2,7 +2,8 @@ class Skeleton extends MovableObject {
     y = 265;
     height = 180;
     width = 180;
-    energy = 10;
+    world;
+    energy = 50;
     offset = {
         top: 85,
         left: 60,
@@ -19,6 +20,12 @@ class Skeleton extends MovableObject {
         'img/3_enemies/Skeleton/2_walk/Walk-7.png',
         'img/3_enemies/Skeleton/2_walk/Walk-8.png',
     ];
+    IMAGES_ATTACK = [
+        'img/3_enemies/Skeleton/6_Attack/Attack_2-1.png',
+        'img/3_enemies/Skeleton/6_Attack/Attack_2-2.png',
+        'img/3_enemies/Skeleton/6_Attack/Attack_2-3.png',
+        'img/3_enemies/Skeleton/6_Attack/Attack_2-4.png',
+    ];
     IMAGES_HURT = [
         'img/3_enemies/Skeleton/4_hurt/Hurt-1.png',
         'img/3_enemies/Skeleton/4_hurt/Hurt-2.png',
@@ -33,16 +40,16 @@ class Skeleton extends MovableObject {
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 200 + Math.random() * 500;
+        this.x = 700 + Math.random() * 700;
         this.speed = 0.15 + Math.random() * 0.25;
-        this.animate();
     }
 
     animate() {
         let sixtyFPS = setInterval(() => {
-            if (!this.isHurt()) {
+            if (!this.isHurt() && !this.isColliding(this.world.character)) {
             this.moveLeft();
             }
             if (this.isDead()) {
@@ -53,9 +60,14 @@ class Skeleton extends MovableObject {
         let move = setInterval(() => {
             if (this.isHurt()) {
                 this.playAnimations(this.IMAGES_HURT);
-            } else {
+            } else 
+            if (this.isColliding(this.world.character) && !this.world.character.isDead()) {
+                this.playAnimations(this.IMAGES_ATTACK);
+            }
+            else {
                 this.playAnimations(this.IMAGES_WALKING);
             }
+
             if (this.isDead()) {
                 clearInterval(move);
                 this.dead(this.IMAGES_DEAD);

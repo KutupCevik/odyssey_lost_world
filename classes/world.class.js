@@ -19,6 +19,10 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.level.enemies.forEach(enemy => {
+            enemy.world = this;
+            enemy.animate();
+        });
     }
 
     run() {
@@ -39,13 +43,13 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && !enemy.isDead()) {
                 console.log(enemy);
                 this.character.hit(20);
                 this.statusBar.setPercentage(this.character.energy);
             }
             this.throwableObjects.forEach(arrow => {
-                if (enemy.isColliding(arrow)) {
+                if (enemy.isColliding(arrow) && !enemy.isDead()) {
                     enemy.hit(20);
                     this.removeThrowObjects(arrow);
                 }

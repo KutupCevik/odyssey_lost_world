@@ -10,6 +10,7 @@ class Character extends MovableObject {
         right: 70,
         bottom: 0,
     };
+    energy = 100000;
 
     IMAGES_IDLE = [
         'img/2_character/Archer/1_idle/Idle-1.png',
@@ -85,7 +86,6 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.applyGravity();
-
         this.animate();
     }
 
@@ -95,12 +95,14 @@ class Character extends MovableObject {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
-
+                this.changePlaybackRate(this.walking_sound, 1.5);
+                this.changeVolume(this.walking_sound, 0.5);
                 this.walking_sound.play();
             }
-            if (this.world.keyboard.LEFT && this.x > -100) {
+            if (this.world.keyboard.LEFT && this.x > -680) {
                 this.moveLeft();
                 this.otherDirection = true;
+                this.changePlaybackRate(this.walking_sound, 1.5);
                 this.walking_sound.play();
             }
             this.world.camera_x = -this.x + 30;

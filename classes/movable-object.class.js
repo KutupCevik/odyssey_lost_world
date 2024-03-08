@@ -28,19 +28,24 @@ class MovableObject extends DrawableObject {
         if (this instanceof ThrowableObject) {
             return true;
         } else {
-        return this.y < 230;
+            return this.y < 230;
         }
     }
 
     isColliding(mo) {
-        return  this.x + this.width - this.offset.right > mo.x + mo.offset.left && 
+        return  this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
                 this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
-                this.x + this.offset.left < mo.x + mo.width - mo.offset.right && 
+                this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
                 this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
     }
 
     hit(damage) {
-        this.energy -= 5;
+        // this.level.enemies.forEach(enemy => {
+        //     if (enemy.isDead()) {
+        //         this.energy -= 5;
+        //     }
+        // });
+        this.energy -= damage;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -86,5 +91,13 @@ class MovableObject extends DrawableObject {
 
     jump() {
         this.speedY = 30;
+    }
+
+    changePlaybackRate(sound, rate) {
+        sound.playbackRate = rate;
+    }
+
+    changeVolume(sound, rate) {
+        sound.volume = rate;
     }
 }

@@ -1,8 +1,9 @@
 class Endboss extends MovableObject {
     y = -30;
-    x = 200;
+    x = 1400;
     height = 650;
     width = 650;
+    world;
     firstContact = false;
     offset = {
         top: 330,
@@ -56,7 +57,6 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_FIRE_ATTACK);
-        this.animate();
     }
 
 

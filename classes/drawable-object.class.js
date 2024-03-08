@@ -23,7 +23,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Skeleton || this instanceof Endboss) {
+        if (this instanceof Character || this instanceof Skeleton || this instanceof Plent || this instanceof Endboss) {
             ctx.beginPath();
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'blue';
@@ -33,7 +33,7 @@ class DrawableObject {
     }
 
     drawCollisonFrame(ctx) {
-        if (this instanceof Character || this instanceof Skeleton || this instanceof Endboss || this instanceof ThrowableObject) {
+        if (this instanceof Character || this instanceof Skeleton || this instanceof Plent || this instanceof Endboss || this instanceof ThrowableObject) {
             ctx.beginPath();
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'red';
