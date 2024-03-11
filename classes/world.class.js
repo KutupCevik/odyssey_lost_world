@@ -84,7 +84,9 @@ class World {
                 if (this.character.y + this.character.height - this.character.offset.bottom >= enemy.y + enemy.offset.top - 12 &&
                     this.character.y + this.character.height - this.character.offset.bottom <= enemy.y + enemy.offset.top + 12 &&
                     !(this.character.x + this.character.width - this.character.offset.right >= enemy.x + enemy.offset.left - 5 &&
-                    this.character.x + this.character.width - this.character.offset.right <= enemy.x + enemy.offset.left + 5)) {
+                        this.character.x + this.character.width - this.character.offset.right <= enemy.x + enemy.offset.left + 5) &&
+                    !(this.character.x + this.character.offset.left > enemy.x + enemy.width - enemy.offset.right - 5 &&
+                        this.character.x + this.character.offset.left < enemy.x + enemy.width - enemy.offset.right + 5)) {
                     if (!enemy.isHurt(300)) {
                         enemy.hit(20);
                     }
@@ -102,6 +104,9 @@ class World {
                 }
             });
         });
+        this.level.lyingObjects.forEach((object) => {
+
+        })
     }
 
     removeThrowObjects(arrow) {

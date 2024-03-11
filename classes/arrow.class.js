@@ -1,24 +1,28 @@
 class Arrow extends DrawableObject {
-    width = 50;
+    width = 26;
     height = 50;
-    COIN_IMAGES;
-    interval;
+    ARROW_IMAGES = [
+        'img/6_objects/Arrow1.png',
+        'img/6_objects/Arrow2.png',
+        'img/6_objects/Arrow3.png',
+        'img/6_objects/Arrow4.png',
+        'img/6_objects/Arrow5.png',
+        'img/6_objects/Arrow4.png',
+        'img/6_objects/Arrow3.png',
+        'img/6_objects/Arrow2.png',
+    ];
 
-    constructor(imagePath, width, height, x, y, interval) {
-        super().loadImage(imagePath[0]);
-        this.COIN_IMAGES = imagePath;
-        this.loadImages(this.COIN_IMAGES);
-        this.width = width;
-        this.height = height;
+    constructor(x, y) {
+        super().loadImage(this.ARROW_IMAGES[0]);
+        this.loadImages(this.ARROW_IMAGES);
         this.x = x;
         this.y = y;
-        this.interval = interval;
         this.animate();
     }
 
     animate() {
         setInterval(() => {
-            this.playAnimations(this.COIN_IMAGES);
-        }, this.interval);
+            this.playAnimations(this.ARROW_IMAGES);
+        }, 100);
     }
 }

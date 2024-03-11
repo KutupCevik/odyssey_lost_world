@@ -1,14 +1,11 @@
 class Apple extends MovableObject {
-    width = 50;
-    height = 50;
-    COIN_IMAGES;
+    width = 30;
+    height = 30;
+    y = 420;
     interval;
 
-    constructor(imagePath, width, height, x, y) {
-        super().loadImage(imagePath);
-        this.width = width;
-        this.height = height;
+    constructor(x) {
+        super().loadImage('img/6_objects/apple.png');
         this.x = x;
-        this.y = y;
     }
 }
