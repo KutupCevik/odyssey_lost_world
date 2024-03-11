@@ -5,9 +5,9 @@ class Character extends MovableObject {
     speed = 5.2;
     walking_sound = new Audio('audio/footsteps.mp3');
     offset = {
-        top: 85,
+        top: 90,
         left: 60,
-        right: 70,
+        right: 75,
         bottom: 0,
     };
     energy = 100;

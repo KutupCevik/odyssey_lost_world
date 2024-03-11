@@ -5,8 +5,8 @@ class Skeleton extends MovableObject {
     world;
     energy = 50;
     offset = {
-        top: 85,
-        left: 60,
+        top: 90,
+        left: 70,
         right: 60,
         bottom: 0,
     };

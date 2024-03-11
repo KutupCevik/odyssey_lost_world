@@ -1,12 +1,12 @@
 class Endboss extends MovableObject {
     y = -30;
-    x = 1400;
+    x = 400;
     height = 650;
     width = 650;
     world;
     firstContact = false;
     offset = {
-        top: 360,
+        top: 380,
         left: 130,
         right: 130,
         bottom: 170,

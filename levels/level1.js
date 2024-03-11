@@ -44,6 +44,7 @@ const level1 = new Level(
     [
         new Coin(100, 200),
         new Coin(200, 200),
+        new Arrow(400, 200),
         new Arrow(500, 200),
         new Apple(500),
     ]
