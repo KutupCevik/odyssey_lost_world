@@ -50,23 +50,22 @@ class Skeleton extends MovableObject {
     animate() {
         let sixtyFPS = setInterval(() => {
             if (!this.isHurt() && !this.isColliding(this.world.character)) {
-            this.moveLeft();
+                this.moveLeft();
             }
             if (this.isDead()) {
                 clearInterval(sixtyFPS);
             }
         }, 1000 / 60);
-        
         let move = setInterval(() => {
             if (this.isHurt()) {
                 this.playAnimations(this.IMAGES_HURT);
-            } else 
-            if (this.isColliding(this.world.character) && !this.world.character.isDead()) {
-                this.playAnimations(this.IMAGES_ATTACK);
-            }
-            else {
-                this.playAnimations(this.IMAGES_WALKING);
-            }
+            } else
+                if (this.isColliding(this.world.character) && !this.world.character.isDead()) {
+                    this.playAnimations(this.IMAGES_ATTACK);
+                }
+                else {
+                    this.playAnimations(this.IMAGES_WALKING);
+                }
 
             if (this.isDead()) {
                 clearInterval(move);

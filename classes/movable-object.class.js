@@ -3,7 +3,8 @@ class MovableObject extends DrawableObject {
     paralax = 0;
     otherDirection = false;
     speedY = 0;
-    acceleration = 3;
+    speedX = 0;
+    acceleration = 1;
     lastHit = 0;
     energy = 100;
     offset = {
@@ -21,7 +22,7 @@ class MovableObject extends DrawableObject {
             } else {
                 this.y = 245;
             }
-        }, 1000 / 25);
+        }, 1000 / 50);
     }
 
     isAboveGround() {
@@ -53,9 +54,9 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    isHurt() {
+    isHurt(time = 500) {
         let timepassed = new Date().getTime() - this.lastHit; // ms
-        timepassed = timepassed / 1000; // s
+        timepassed = timepassed / time; // s
         return timepassed < 1;
     }
 
@@ -74,13 +75,6 @@ class MovableObject extends DrawableObject {
         // this.walking_sound.pause();
     }
 
-    playAnimations(images) {
-        let i = this.currentImage % images.length;
-        let path = images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
-    }
-
     moveRight() {
         this.x += this.speed;
     }
@@ -91,6 +85,22 @@ class MovableObject extends DrawableObject {
 
     jump(jumpHeight) {
         this.speedY = jumpHeight;
+    }
+
+    applyRecoil() {
+        this.speedX = 15;
+        if (this.energy > 20) {
+            this.jump(6);
+        }
+        let recoil = setInterval(() => {
+            if (this.speedX > 0 && this.x > -680) {
+                this.x -= this.speedX;
+                this.speedX -= this.acceleration;
+            } else {
+                this.speedX = 0;
+                clearInterval(recoil);
+            }
+        },1000 / 50);
     }
 
     changePlaybackRate(sound, rate) {

@@ -92,14 +92,14 @@ class Character extends MovableObject {
     animate() {
         let sixtyFPS = setInterval(() => {
             this.walking_sound.pause();
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.speedX == 0) {
                 this.moveRight();
                 this.otherDirection = false;
                 this.changePlaybackRate(this.walking_sound, 1.5);
                 this.changeVolume(this.walking_sound, 0.5);
                 this.walking_sound.play();
             }
-            if (this.world.keyboard.LEFT && this.x > -680) {
+            if (this.world.keyboard.LEFT && this.x > -680 ) {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.changePlaybackRate(this.walking_sound, 1.5);
@@ -123,7 +123,7 @@ class Character extends MovableObject {
                     this.playAnimations(this.IMAGES_WALKING);
                 }
                 if (this.world.keyboard.UP && !this.isAboveGround()) {
-                    this.jump(30);
+                    this.jump(15);
                 }
             }
             if (this.isHurt()) {

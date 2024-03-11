@@ -7,7 +7,7 @@ class DrawableObject {
     imageCache = {};
     currentImage = 0;
 
-    loadImage(path, paralax) {
+    loadImage(path, paralax = 0) {
         this.img = new Image();
         this.img.src = path;
         this.paralax = paralax;
@@ -22,8 +22,15 @@ class DrawableObject {
         }
     }
 
+    playAnimations(images) {
+        let i = this.currentImage % images.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+    }
+
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Skeleton || this instanceof Plent || this instanceof Endboss) {
+        if (this instanceof Character || this instanceof Skeleton || this instanceof Plent || this instanceof Endboss || this instanceof Arrow || this instanceof Coin || this instanceof Apple) {
             ctx.beginPath();
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'blue';

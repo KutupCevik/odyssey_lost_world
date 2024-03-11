@@ -40,5 +40,34 @@ const level1 = new Level(
         new BackgroundObject('img/5_background/parallax background/plx-4.png', 720*2, 1),
         new BackgroundObject('img/5_background/parallax background/plx-5.png', 720*2, 0),
         new BackgroundObject('img/5_background/parallax background/plx-6.png', 720*2, 0),
+    ],
+    [
+        new Coin([
+            'img/6_objects/gold coin/coin1.png',
+            'img/6_objects/gold coin/coin2.png',
+            'img/6_objects/gold coin/coin3.png',
+            'img/6_objects/gold coin/coin4.png',
+            'img/6_objects/gold coin/coin5.png',
+            'img/6_objects/gold coin/coin6.png',
+        ], 40, 40, 100, 200, 110),
+        new Coin([
+            'img/6_objects/gold coin/coin1.png',
+            'img/6_objects/gold coin/coin2.png',
+            'img/6_objects/gold coin/coin3.png',
+            'img/6_objects/gold coin/coin4.png',
+            'img/6_objects/gold coin/coin5.png',
+            'img/6_objects/gold coin/coin6.png',
+        ], 40, 40, 200, 200, 110),
+        new Arrow([
+            'img/6_objects/Arrow1.png',
+            'img/6_objects/Arrow2.png',
+            'img/6_objects/Arrow3.png',
+            'img/6_objects/Arrow4.png',
+            'img/6_objects/Arrow5.png',
+            'img/6_objects/Arrow4.png',
+            'img/6_objects/Arrow3.png',
+            'img/6_objects/Arrow2.png',
+        ], 26, 50, 500, 200, 100),
+        new Apple('img/6_objects/apple.png', 30, 30, 500, 420),
     ]
 );

@@ -54,7 +54,7 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
-        }, 25);
+        }, 10);
         setInterval(() => {
             this.checkThrowObjects();
         }, 550);
@@ -67,6 +67,13 @@ class World {
         }
     }
 
+
+    // return  this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+    // this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+    // this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+    // this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+
+
     // this.character.isAboveGround()
     // && this.character.speedY < 0 
     // (this.character.y + this.character.height - this.character.offset.bottom >= enemy.y + enemy.offset.top - 15 &&
@@ -74,11 +81,16 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isHurt()) {
-                if (this.character.y + this.character.height - this.character.offset.bottom >= enemy.y + enemy.offset.top - 15 &&
-                    this.character.y + this.character.height - this.character.offset.bottom <= enemy.y + enemy.offset.top + 15) {
-                    enemy.hit(20);
-                    this.character.jump(20);
+                if (this.character.y + this.character.height - this.character.offset.bottom >= enemy.y + enemy.offset.top - 12 &&
+                    this.character.y + this.character.height - this.character.offset.bottom <= enemy.y + enemy.offset.top + 12 &&
+                    !(this.character.x + this.character.width - this.character.offset.right >= enemy.x + enemy.offset.left - 5 &&
+                    this.character.x + this.character.width - this.character.offset.right <= enemy.x + enemy.offset.left + 5)) {
+                    if (!enemy.isHurt(300)) {
+                        enemy.hit(20);
+                    }
+                    this.character.jump(10);
                 } else {
+                    this.character.applyRecoil();
                     this.character.hit(10);
                     this.healthBar.setPercentage(this.character.energy, this.healthBarImgs);
                 }
@@ -105,6 +117,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.lyingObjects);
         this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
 
