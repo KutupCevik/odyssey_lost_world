@@ -7,10 +7,9 @@ class DrawableObject {
     imageCache = {};
     currentImage = 0;
 
-    loadImage(path, paralax = 0) {
+    loadImage(path) {
         this.img = new Image();
         this.img.src = path;
-        this.paralax = paralax;
     }
 
     draw(ctx) {
@@ -40,7 +39,7 @@ class DrawableObject {
     }
 
     drawCollisonFrame(ctx) {
-        if (this instanceof Character || this instanceof Skeleton || this instanceof Plent || this instanceof Endboss || this instanceof ThrowableObject) {
+        if (this instanceof Character || this instanceof Skeleton || this instanceof Plent || this instanceof Endboss || this instanceof ThrowableObject || this instanceof Apple) {
             ctx.beginPath();
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'red';

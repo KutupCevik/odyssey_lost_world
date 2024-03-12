@@ -2,7 +2,7 @@ class ThrowableObject extends MovableObject {
     constructor(x, y) {
         super().loadImage('img/2_character/Archer/Arrow.png');
         this.x = x;
-        this.y = y;
+        this.y = y; 
         this.height = 70;
         this.width = 70;
         this.offset = {

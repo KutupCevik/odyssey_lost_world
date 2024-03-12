@@ -74,10 +74,33 @@ class Endboss extends MovableObject {
             //     i = 0;
             //     firstContact = true;
             // }
+
             if (this.isHurt()) {
                 this.playAnimations(this.IMAGES_HURT);
-            } else {
+                this.offset = {
+                    top: 380,
+                    left: 130,
+                    right: 130,
+                    bottom: 170,
+                };
+            } else
+            if (this.world.character.x > 200) {
+                this.playAnimations(this.IMAGES_ATTACK);
+                this.offset = {
+                    top: 250,
+                    left: 230,
+                    right: 290,
+                    bottom: 170,
+                };
+            } 
+            else {
                 this.playAnimations(this.IMAGES_IDLE);
+                this.offset = {
+                    top: 380,
+                    left: 130,
+                    right: 130,
+                    bottom: 170,
+                };
             }
             if (this.isDead()) {
                 clearInterval(idle);

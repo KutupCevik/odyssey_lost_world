@@ -1,6 +1,12 @@
 class Arrow extends DrawableObject {
     width = 26;
     height = 50;
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    };
     ARROW_IMAGES = [
         'img/6_objects/Arrow1.png',
         'img/6_objects/Arrow2.png',

@@ -34,10 +34,19 @@ class MovableObject extends DrawableObject {
     }
 
     isColliding(mo) {
-        return  this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
-                this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
-                this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
-                this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+        return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+            this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+    }
+
+    isCollidingFromAbove(enemy) {
+        return this.y + this.height - this.offset.bottom >= enemy.y + enemy.offset.top - 12 &&
+            this.y + this.height - this.offset.bottom <= enemy.y + enemy.offset.top + 12 &&
+            !(this.x + this.width - this.offset.right >= enemy.x + enemy.offset.left - 5 &&
+                this.x + this.width - this.offset.right <= enemy.x + enemy.offset.left + 5) &&
+            !(this.x + this.offset.left > enemy.x + enemy.width - enemy.offset.right - 5 &&
+                this.x + this.offset.left < enemy.x + enemy.width - enemy.offset.right + 5)
     }
 
     hit(damage) {
@@ -100,7 +109,7 @@ class MovableObject extends DrawableObject {
                 this.speedX = 0;
                 clearInterval(recoil);
             }
-        },1000 / 50);
+        }, 1000 / 50);
     }
 
     changePlaybackRate(sound, rate) {

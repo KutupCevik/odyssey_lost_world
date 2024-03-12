@@ -14,9 +14,12 @@ class StatusBar extends DrawableObject {
     percentage = 100;
     statusBarImgs = [];
 
-    constructor(statusBarImgs, y, percentage) {
+    constructor(statusBarImgs, width, height, x, y, percentage) {
         super();
         this.statusBarImgs = statusBarImgs;
+        this.width = width;
+        this.height = height;
+        this.x = x;
         this.y = y;
         this.loadImages(this.statusBarImgs)
         this.setPercentage(percentage, this.statusBarImgs);
@@ -29,7 +32,7 @@ class StatusBar extends DrawableObject {
     }
 
     resolveImageIndex() {
-        if (this.percentage == 100) {
+        if (this.percentage >= 100) {
             return 5;
         } else if (this.percentage >= 80) {
             return 4;
