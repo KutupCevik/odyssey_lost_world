@@ -1,25 +1,37 @@
 class ThrowableObject extends MovableObject {
-    constructor(x, y) {
-        super().loadImage('img/2_character/Archer/Arrow.png');
+    imgs;
+    constructor(img, x, y, od) {
+        super().loadImage(img[0]);
         this.x = x;
         this.y = y; 
         this.height = 70;
         this.width = 70;
+        this.imgs = img;
         this.offset = {
             top: 30,
             left: 80,
             right: 0,
             bottom: 30,
         };
-        this.trow();
+        this.loadImages(img);
+        this.trow(od);
     }
 
-    trow() {
+    trow(od) {
         this.speedY = 0;
         this.acceleration = 1;
         this.applyGravity();
+        if (od) {
+            setInterval(() => {
+                this.x -= 40;
+            }, 20);
+        } else {
+            setInterval(() => {
+                this.x += 40;
+            }, 20);
+        }
         setInterval(() => {
-            this.x += 40;
-        }, 20);
+            this.playAnimations(this.imgs);
+        }, 200);
     }
 }

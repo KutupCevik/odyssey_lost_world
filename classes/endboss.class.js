@@ -1,10 +1,12 @@
 class Endboss extends MovableObject {
     y = -30;
-    x = 400;
+    x = 2800;
     height = 650;
     width = 650;
+    speed = 1;
     world;
     firstContact = false;
+    energy = 100;
     offset = {
         top: 380,
         left: 130,
@@ -37,8 +39,6 @@ class Endboss extends MovableObject {
     IMAGES_ATTACK = [
         'img/4_enemie_boss/dragon/3_attack/Attack1.png',
         'img/4_enemie_boss/dragon/3_attack/Attack2.png',
-        'img/4_enemie_boss/dragon/3_attack/Attack3.png',
-        'img/4_enemie_boss/dragon/3_attack/Attack4.png',
     ];
     IMAGES_FIRE_ATTACK = [
         'img/4_enemie_boss/dragon/3_attack/Fire_Attack1.png',
@@ -62,6 +62,14 @@ class Endboss extends MovableObject {
 
     animate() {
         let i = 0;
+        let sixtyFPS = setInterval(() => {
+            if (!this.isHurt() && !this.isColliding(this.world.character) && this.firstContact) {
+                this.moveLeft();
+            }
+            if (this.isDead()) {
+                clearInterval(sixtyFPS);
+            }
+        }, 1000 / 60);
         let idle = setInterval(() => {
             
             // if (i < 10) {
@@ -70,11 +78,10 @@ class Endboss extends MovableObject {
             //     this.playAnimations(this.IMAGES_IDLE);
             // }
             // i++;
-            // if (world.character.x > 1400 && !firstContact) {
-            //     i = 0;
-            //     firstContact = true;
-            // }
-
+            if (world.character.x > 2500) {
+                this.firstContact = true;
+            }
+            
             if (this.isHurt()) {
                 this.playAnimations(this.IMAGES_HURT);
                 this.offset = {
@@ -83,17 +90,27 @@ class Endboss extends MovableObject {
                     right: 130,
                     bottom: 170,
                 };
+                this.applyRecoil(10);
+                
             } else
-            if (this.world.character.x > 200) {
+            if (this.x - this.world.character.x < 70 && this.x - this.world.character.x > -10) {
                 this.playAnimations(this.IMAGES_ATTACK);
+                this.applyRecoil(10);
                 this.offset = {
                     top: 250,
                     left: 230,
                     right: 290,
                     bottom: 170,
                 };
-            } 
-            else {
+            } else if (this.firstContact) {
+                this.playAnimations(this.IMAGES_WALKING);
+                this.offset = {
+                    top: 380,
+                    left: 130,
+                    right: 130,
+                    bottom: 170,
+                };
+            } else {
                 this.playAnimations(this.IMAGES_IDLE);
                 this.offset = {
                     top: 380,
@@ -109,3 +126,4 @@ class Endboss extends MovableObject {
         }, 200);
     }
 }
+// && this.firstContact

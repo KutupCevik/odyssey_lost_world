@@ -4,6 +4,7 @@ class Character extends MovableObject {
     world;
     speed = 5.2;
     walking_sound = new Audio('audio/footsteps.mp3');
+    jump_sound = new Audio('audio/jump.mp3');
     offset = {
         top: 90,
         left: 60,
@@ -74,7 +75,6 @@ class Character extends MovableObject {
         'img/2_character/Archer/5_dead/Dead-2.png',
         'img/2_character/Archer/5_dead/Dead-3.png',
     ];
-    // switchImages = false;
 
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
@@ -95,9 +95,11 @@ class Character extends MovableObject {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.speedX == 0) {
                 this.moveRight();
                 this.otherDirection = false;
-                this.changePlaybackRate(this.walking_sound, 1.5);
-                this.changeVolume(this.walking_sound, 0.5);
-                this.walking_sound.play();
+                if (!this.isAboveGround()) {
+                    this.changePlaybackRate(this.walking_sound, 1.5);
+                    this.changeVolume(this.walking_sound, 0.5);
+                    this.walking_sound.play();
+                }
                 // this.world.level.backgroundObjects.forEach((backgroundImg) => {
                 //     backgroundImg.x += backgroundImg.paralax;
                 //     // console.log(backgroundImg.paralax);
@@ -106,12 +108,19 @@ class Character extends MovableObject {
             if (this.world.keyboard.LEFT && this.x > -680 ) {
                 this.moveLeft();
                 this.otherDirection = true;
-                this.changePlaybackRate(this.walking_sound, 1.5);
-                this.walking_sound.play();
+                if (!this.isAboveGround()) {
+                    this.changePlaybackRate(this.walking_sound, 1.5);
+                    this.walking_sound.play();
+                }
                 // this.world.level.backgroundObjects.forEach((backgroundImg) => {
                 //     backgroundImg.x -= backgroundImg.paralax;
                 //     // console.log(backgroundImg.paralax);
                 // });
+            }
+            if (this.world.keyboard.SPACE == true) {
+                this.jump_sound.play();
+                // this.jump_sound2.play();
+                
             }
             this.world.camera_x = -this.x + 30;
             if (this.isDead()) {
@@ -126,6 +135,7 @@ class Character extends MovableObject {
             }
             if (this.isAboveGround()) {
                 this.playAnimations(this.IMAGES_JUMP);
+                this.walking_sound.pause();
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimations(this.IMAGES_WALKING);

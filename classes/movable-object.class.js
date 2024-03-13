@@ -50,11 +50,6 @@ class MovableObject extends DrawableObject {
     }
 
     hit(damage) {
-        // this.level.enemies.forEach(enemy => {
-        //     if (enemy.isDead()) {
-        //         this.energy -= 5;
-        //     }
-        // });
         this.energy -= damage;
         if (this.energy < 0) {
             this.energy = 0;
@@ -81,7 +76,6 @@ class MovableObject extends DrawableObject {
                 clearInterval(deadInterval);
             }
         }, 100);
-        // this.walking_sound.pause();
     }
 
     moveRight() {
@@ -96,8 +90,8 @@ class MovableObject extends DrawableObject {
         this.speedY = jumpHeight;
     }
 
-    applyRecoil() {
-        this.speedX = 15;
+    applyRecoil(speed = 15) {
+        this.speedX = speed;
         if (this.energy > 20) {
             this.jump(6);
         }

@@ -2,6 +2,7 @@ class Plent extends MovableObject {
     y = 285;
     height = 160;
     width = 160;
+    hit_sound = new Audio('audio/enemy_punch.mp3');
     world;
     energy = 10;
     offset = {
@@ -36,7 +37,7 @@ class Plent extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 300 + Math.random() * 500;
+        this.x = 300 + Math.random() * 2000;
         this.speed = 0.15 + Math.random() * 0.25;
     }
 
@@ -44,15 +45,19 @@ class Plent extends MovableObject {
         let sixtyFPS = setInterval(() => {
             if (!this.isHurt() && !this.isColliding(this.world.character)) {
                 this.moveLeft();
-                }
-                if (this.isDead()) {
-                    clearInterval(sixtyFPS);
-                }
+            }
+            if (this.isDead()) {
+                clearInterval(sixtyFPS);
+            }
         }, 1000 / 60);
-        
+
         let move = setInterval(() => {
             if (this.isColliding(this.world.character) && !this.world.character.isDead()) {
                 this.playAnimations(this.IMAGES_ATTACK);
+                this.hit_sound.play();
+                setTimeout(() => {
+                    this.hit_sound.pause();
+                }, 1000);
             }
             else {
                 this.playAnimations(this.IMAGES_WALKING);

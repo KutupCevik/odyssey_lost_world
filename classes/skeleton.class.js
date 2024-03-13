@@ -10,6 +10,7 @@ class Skeleton extends MovableObject {
         right: 60,
         bottom: 0,
     };
+    hit_sound = new Audio('audio/knife.mp3');
     IMAGES_WALKING = [
         'img/3_enemies/Skeleton/2_walk/Walk-1.png',
         'img/3_enemies/Skeleton/2_walk/Walk-2.png',
@@ -43,7 +44,7 @@ class Skeleton extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 700 + Math.random() * 700;
+        this.x = 1000 + Math.random() * 1500;
         this.speed = 0.15 + Math.random() * 0.25;
     }
 
@@ -56,12 +57,17 @@ class Skeleton extends MovableObject {
                 clearInterval(sixtyFPS);
             }
         }, 1000 / 60);
+
         let move = setInterval(() => {
             if (this.isHurt()) {
                 this.playAnimations(this.IMAGES_HURT);
             } else
                 if (this.isColliding(this.world.character) && !this.world.character.isDead()) {
                     this.playAnimations(this.IMAGES_ATTACK);
+                    this.hit_sound.play();
+                    // setTimeout(() => {
+                    //     this.hit_sound.pause();
+                    // }, 500);
                 }
                 else {
                     this.playAnimations(this.IMAGES_WALKING);

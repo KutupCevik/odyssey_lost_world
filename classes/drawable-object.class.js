@@ -39,7 +39,7 @@ class DrawableObject {
     }
 
     drawCollisonFrame(ctx) {
-        if (this instanceof Character || this instanceof Skeleton || this instanceof Plent || this instanceof Endboss || this instanceof ThrowableObject || this instanceof Apple) {
+        if (this instanceof Character || this instanceof Skeleton || this instanceof Plent || this instanceof Endboss || this instanceof ThrowableObject || this instanceof Apple || this instanceof Arrow || this instanceof Coin) {
             ctx.beginPath();
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'red';

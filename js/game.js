@@ -5,11 +5,9 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    console.log('My Character is', world.character);
 }
 
 window.addEventListener('keydown', (e) => {
-    console.log(e.code);
     if (e.code == 'KeyW' || e.code == 'ArrowUp') {
         keyboard.UP = true;
         e.preventDefault();
