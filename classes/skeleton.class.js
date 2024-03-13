@@ -10,8 +10,6 @@ class Skeleton extends MovableObject {
         right: 60,
         bottom: 0,
     };
-    hit_sound = new Audio('audio/knife.mp3');
-    fallingBones = new Audio('audio/bone-crack.mp3');
     IMAGES_WALKING = [
         'img/3_enemies/Skeleton/2_walk/Walk-1.png',
         'img/3_enemies/Skeleton/2_walk/Walk-2.png',
@@ -65,14 +63,14 @@ class Skeleton extends MovableObject {
             } else
                 if (this.isColliding(this.world.character) && !this.world.character.isDead()) {
                     this.playAnimations(this.IMAGES_ATTACK);
-                    this.hit_sound.play();
+                    this.world.hit_sound.play();
                 }
                 else {
                     this.playAnimations(this.IMAGES_WALKING);
                 }
 
             if (this.isDead()) {
-                this.fallingBones.play();
+                this.world.fallingBones.play();
                 clearInterval(move);
                 this.dead(this.IMAGES_DEAD);
             }

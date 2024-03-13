@@ -50,6 +50,70 @@ function closeCard() {
     document.getElementById('card').classList.add('d-none');
 }
 
+function soundMute() {
+    world.coin.muted = true;
+    world.punch.muted = true;
+    world.dragonPunch.muted = true;
+    world.knife.muted = true;
+    world.jump_hit.muted = true;
+    world.backgroundMusic.muted = true;
+    world.walking_sound.muted = true;
+    world.jump_sound.muted = true;
+    world.hit_sound.muted = true;
+    world.fallingBones.muted = true;
+    world.hit_sound_plent.muted = true;
+    world.dragonRoar.muted = true;
+    world.dragonGrowl.muted = true;
+    world.winn.muted = true;
+}
+
+
+function soundOn() {
+    world.coin.muted = false;
+    world.punch.muted = false;
+    world.dragonPunch.muted = false;
+    world.knife.muted = false;
+    world.jump_hit.muted = false;
+    world.backgroundMusic.muted = false;
+    world.walking_sound.muted = false;
+    world.jump_sound.muted = false;
+    world.hit_sound.muted = false;
+    world.fallingBones.muted = false;
+    world.hit_sound_plent.muted = false;
+    world.dragonRoar.muted = false;
+    world.dragonGrowl.muted = false;
+    world.winn.muted = false;
+}
+
+
+function stopSound() {
+    world.coin.pause()
+    world.punch.pause();
+    world.dragonPunch.pause();
+    world.knife.pause();
+    world.jump_hit.pause();
+    world.backgroundMusic.pause();
+    world.walking_sound.pause();
+    world.jump_sound.pause();
+    world.hit_sound.pause();
+    world.fallingBones.pause();
+    world.hit_sound_plent.pause();
+    world.dragonRoar.pau;
+    world.dragonGrowl.pause();
+    world.winn.pause();
+}
+
+
+function fullscreen() {
+}
+
+
+function windowedFullscreen() {}
+
+function clearAllIntervals() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
+}
+
 
 function doNotClose(event) {
     event.stopPropagation();
@@ -108,10 +172,15 @@ window.addEventListener('keyup', (e) => {
 function canvasHTML() {
     return /*html*/`
         <div class="canvas-container">
-            <button class="test">moin</button>
+            <div class="ui-buttons">
+                <img id="soundMute" onclick="soundMute()" src="img/UI/music.png" alt="">
+                <img id="soundOn" onclick="soundOn()" src="img/UI/music-off.png" alt="">
+                <img id="fullscreen" onclick="fullscreen()" src="img/UI/fullscreen.png" alt="">
+                <img id="windowed-fullscreen" onclick="windowedFullscreen()" src="img/UI/fullscreen-off.png" alt="">
+            </div>
             <canvas id="canvas" class="" width="720" height="480"></canvas>
-            <button class="back-button" onclick="backtoStart()">Zurück</button>
         </div>
+        <button class="back-button" onclick="backtoStart()">Zurück</button>
     `;
 }
 

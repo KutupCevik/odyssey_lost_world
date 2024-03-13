@@ -1,14 +1,14 @@
 const level1 = new Level(
     [
         new Endboss(),
-        // new Skeleton(),
-        // new Skeleton(),
-        // new Plent(),
-        // new Skeleton(),
-        // new Plent(),
-        // new Skeleton(),
-        // new Plent(),
-        // new Plent(),
+        new Skeleton(),
+        new Skeleton(),
+        new Plent(),
+        new Skeleton(),
+        new Plent(),
+        new Skeleton(),
+        new Plent(),
+        new Plent(),
     ],
     [
         new Cloud(),

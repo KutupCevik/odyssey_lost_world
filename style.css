@@ -29,9 +29,17 @@ canvas {
     align-items: center;
 }
 
-.test {
+.ui-buttons {
     position: absolute;
-    top: 0;
+    top: 5px;
+    display: flex;
+    gap: 10px;
+    z-index: 1;
+}
+
+.ui-buttons img {
+    height: 30px;
+    cursor: pointer;
 }
 
 h1 {

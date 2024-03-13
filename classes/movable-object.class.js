@@ -13,7 +13,6 @@ class MovableObject extends DrawableObject {
         right: 0,
         bottom: 0,
     };
-
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -104,10 +103,6 @@ class MovableObject extends DrawableObject {
                 clearInterval(recoil);
             }
         }, 1000 / 50);
-    }
-
-    clearAllIntervals() {
-        for (let i = 1; i < 9999; i++) window.clearInterval(i);
     }
 
     changePlaybackRate(sound, rate) {

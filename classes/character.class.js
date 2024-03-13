@@ -10,8 +10,6 @@ class Character extends MovableObject {
         bottom: 0,
     };
     energy = 100;
-    walking_sound = new Audio('audio/footsteps.mp3');
-    jump_sound = new Audio('audio/jump.mp3');
     IMAGES_IDLE = [
         'img/2_character/Archer/1_idle/Idle-1.png',
         'img/2_character/Archer/1_idle/Idle-2.png',
@@ -90,31 +88,31 @@ class Character extends MovableObject {
 
     animate() {
         let sixtyFPS = setInterval(() => {
-            this.walking_sound.pause();
+            this.world.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.speedX == 0) {
                 this.moveRight();
                 this.otherDirection = false;
                 if (!this.isAboveGround()) {
-                    this.changePlaybackRate(this.walking_sound, 1.5);
-                    this.changeVolume(this.walking_sound, 0.5);
-                    this.walking_sound.play();
+                    this.changePlaybackRate(this.world.walking_sound, 1.5);
+                    this.changeVolume(this.world.walking_sound, 0.5);
+                    this.world.walking_sound.play();
                 }
             }
             if (this.world.keyboard.LEFT && this.x > -680 ) {
                 this.moveLeft();
                 this.otherDirection = true;
                 if (!this.isAboveGround()) {
-                    this.changePlaybackRate(this.walking_sound, 1.5);
-                    this.walking_sound.play();
+                    this.changePlaybackRate(this.world.walking_sound, 1.5);
+                    this.world.walking_sound.play();
                 }
             }
             if (this.world.keyboard.SPACE == true) {
-                this.jump_sound.play();
+                this.world.jump_sound.play();
             }
             this.world.camera_x = -this.x + 30;
             if (this.isDead()) {
                 clearInterval(sixtyFPS);
-                this.walking_sound.pause();
+                this.world.walking_sound.pause();
             }
         }, 1000 / 60);
 
@@ -124,7 +122,7 @@ class Character extends MovableObject {
             }
             if (this.isAboveGround()) {
                 this.playAnimations(this.IMAGES_JUMP);
-                this.walking_sound.pause();
+                this.world.walking_sound.pause();
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimations(this.IMAGES_WALKING);
@@ -143,7 +141,8 @@ class Character extends MovableObject {
                 clearInterval(idle);
                 this.dead(this.IMAGES_DEAD);
                 setTimeout(() => {
-                this.clearAllIntervals();
+                clearAllIntervals();
+                stopSound();
                 }, 1000);
             }
         }, 100);

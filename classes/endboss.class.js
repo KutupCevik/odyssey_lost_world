@@ -13,9 +13,6 @@ class Endboss extends MovableObject {
         right: 130,
         bottom: 170,
     };
-    dragonRoar = new Audio('audio/dragon-roar.mp3');
-    dragonGrowl = new Audio('audio/dragon-growl.mp3');
-    winn = new Audio('audio/winning-sound.mp3');
     IMAGES_IDLE = [
         'img/4_enemie_boss/dragon/Idle1.png',
         'img/4_enemie_boss/dragon/Idle2.png',
@@ -76,10 +73,10 @@ class Endboss extends MovableObject {
         let idle = setInterval(() => {
             if (world.character.x > 2400) {
                 this.firstContact = true;
-                this.dragonGrowl.play();
+                this.world.dragonGrowl.play();
             }
             if (world.character.x > 1400 && world.character.x < 1420) {
-                this.dragonRoar.play();
+                this.world.dragonRoar.play();
             }
             if (this.isHurt()) {
                 this.playAnimations(this.IMAGES_HURT);
@@ -116,14 +113,17 @@ class Endboss extends MovableObject {
                     bottom: 170,
                 };
             }
+            if (this.x < - 620) {
+                this.energy = 0;
+                this.world.healthBarBoss.setPercentage(enemy.energy, this.healthBarImgsBoss);
+            }
             if (this.isDead()) {
                 clearInterval(idle);
                 this.dead(this.IMAGES_DEAD);
-                this.winn.play();
+                this.world.winn.play();
                 setTimeout(() => {
-                    this.clearAllIntervals();
-                    world = '';
-                    document.getElementById('canvas').classList.add('d-none');
+                    clearAllIntervals();
+                    stopSound();
                 }, 1000);
             }
         }, 200);

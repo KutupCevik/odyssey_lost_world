@@ -13,6 +13,14 @@ class World {
     knife = new Audio('audio/knife.mp3');
     jump_hit = new Audio('audio/jump-hit.wav');
     backgroundMusic = new Audio('audio/background-music.mp3');
+    walking_sound = new Audio('audio/footsteps.mp3');
+    jump_sound = new Audio('audio/jump.mp3');
+    hit_sound = new Audio('audio/knife.mp3');
+    fallingBones = new Audio('audio/bone-crack.mp3');
+    hit_sound_plent = new Audio('audio/punch.mp3');
+    dragonRoar = new Audio('audio/dragon-roar.mp3');
+    dragonGrowl = new Audio('audio/dragon-growl.mp3');
+    winn = new Audio('audio/winning-sound.mp3');
     healthBarImgs = [
         'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
         'img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
@@ -48,6 +56,8 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.setVolume();
+        this.playSound();
     }
 
     setWorld() {
@@ -57,6 +67,46 @@ class World {
             enemy.animate();
         });
     }
+
+    setVolume() {
+        this.coin.volume = 0.5;
+        this.punch.volume = 0.5;
+        this.dragonPunch.volume = 0.5;
+        this.knife.volume = 0.5;
+        this.jump_hit.volume = 0.5;
+        this.backgroundMusic.volume = 0.09;
+        this.walking_sound.volume = 0.5;
+        this.jump_sound.volume = 0.5;
+        this.hit_sound.volume = 0.5;
+        this.fallingBones.volume = 0.5;
+        this.hit_sound_plent.volume = 0.5;
+        this.dragonRoar.volume = 0.5;
+        this.dragonGrowl.volume = 0.5;
+        this.winn.volume = 0.5;
+    }
+
+
+    playSound() {
+        this.backgroundMusic.play();
+    }
+
+    // soundMute() {
+    //     this.coin.muted = true;
+    //     this.punch.muted = true;
+    //     this.dragonPunch.muted = true;
+    //     this.knife.muted = true;
+    //     this.jump_hit.muted = true;
+    //     this.backgroundMusic.muted = true;
+    //     this.character.walking_sound.muted = true;
+    //     this.character.jump_sound.muted = true;
+    //     this.level.enemies.forEach((enemie) => {
+    //         enemie.dragonRoar.muted = true;
+    //         enemie.dragonGrowl.muted = true;
+    //         enemie.winn.muted = true;
+    //         enemie.hit_sound.muted = true;
+    //         enemie.fallingBones.muted = true;
+    //     });
+    // }
 
     run() {
         setInterval(() => {
@@ -126,9 +176,6 @@ class World {
                 this.level.lyingObjects.splice(i, 1);
                 this.coins++
                 this.coin.play();
-                // setTimeout(() => {
-                //     this.coin.pause();
-                // }, 1000);
             };
             if (this.character.isColliding(object) && object instanceof Arrow) {
                 this.level.lyingObjects.splice(i, 1);
@@ -167,7 +214,6 @@ class World {
         requestAnimationFrame(() => {
             this.draw();
         })
-        this.backgroundMusic.play();
     }
 
     drawCoins(ctx) {
