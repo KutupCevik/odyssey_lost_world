@@ -6,22 +6,164 @@ body {
     font-family: Arial;
     background-image: url('img/odyssey-bg.png');
     background-position: center;
+    padding: 20px;
 }
+
+/* * {
+    box-sizing: border-box;
+} */
 
 canvas {
     background-color: black;
     display: block;
+    position: relative;
+}
+
+.canvas-container {
+    width: 100%;
+    max-width: 720px;
+    aspect-ratio: 1.5 / 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.test {
+    position: absolute;
+    top: 0;
 }
 
 h1 {
     color: green;
+    font-family: PublicPixel;
+    font-size: 24px;
+    text-align: center;
+}
+
+.card-background {
+    height: 100%;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    background-color: #0000004b;
+}
+
+.card {
+    height: 70vh;
+    max-width: 400px;
+    width: 300px;
+    background-color: #aedecb;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content {
+    overflow-y: auto;
+    margin-top: 20px;
 }
 
 .story {
     color: green;
     font-size: 18px;
-    max-width: 700px;
 }
+
+.d-none {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.center {
+    justify-content: center;
+}
+
+.center2 {
+    align-items: center;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.main-buttons {
+    height: 300px;
+    padding: 50px;
+}
+
+.main-button {
+    min-width: 200px;
+    height: 70px;
+    font-size: 1.1em;
+    cursor: pointer;
+    background-color: #aedecb;
+    color: black;
+    font-size: larger;
+    font-weight: 700;
+    border: none;
+    border-radius: 5px;
+    transition: all .4s;
+}
+
+.main-button:hover {
+    border-radius: 5px;
+    transform: translateY(-10px);
+    box-shadow: 0 7px 0 -2px #f85959,
+        0 15px 0 -4px green,
+        0 16px 10px -3px green;
+}
+
+.main-button:active {
+    transition: all 0.2s;
+    transform: translateY(-5px);
+    box-shadow: 0 2px 0 -2px #f85959,
+        0 8px 0 -4px green,
+        0 12px 10px -3px green;
+}
+
+.footer-buttons {
+    gap: 20px;
+}
+
+.footer-button {
+    width: 130px;
+    height: 40px;
+    font-size: 1.1em;
+    cursor: pointer;
+    background-color: #171717;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: all .4s;
+}
+
+.footer-button:hover {
+    border-radius: 5px;
+    transform: translateY(-10px);
+    box-shadow: 0 7px 0 -2px #fff,
+        0 15px 0 -4px #39a2db,
+        0 16px 10px -3px #39a2db;
+}
+
+.footer-button:active {
+    transition: all 0.2s;
+    transform: translateY(-5px);
+    box-shadow: 0 2px 0 -2px #fff,
+        0 8px 0 -4px #39a2db,
+        0 12px 10px -3px #39a2db;
+}
+
 
 @media only screen and (max-width: 720px) {
     canvas {
@@ -33,4 +175,9 @@ h1 {
     canvas {
         height: 100vh;
     }
+}
+
+@font-face {
+    font-family: PublicPixel;
+    src: url('font/public-pixel-font/PublicPixel-z84yD.ttf');
 }

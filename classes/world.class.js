@@ -167,6 +167,7 @@ class World {
         requestAnimationFrame(() => {
             this.draw();
         })
+        this.backgroundMusic.play();
     }
 
     drawCoins(ctx) {

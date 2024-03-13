@@ -90,9 +90,7 @@ class Endboss extends MovableObject {
                     bottom: 170,
                 };
                 this.applyRecoil(10);
-                
-            } else
-            if (this.x - this.world.character.x < 70 && this.x - this.world.character.x > -10) {
+            } else if (this.x - this.world.character.x < 70 && this.x - this.world.character.x > -10) {
                 this.playAnimations(this.IMAGES_ATTACK);
                 this.applyRecoil(10);
                 this.offset = {
@@ -124,6 +122,8 @@ class Endboss extends MovableObject {
                 this.winn.play();
                 setTimeout(() => {
                     this.clearAllIntervals();
+                    world = '';
+                    document.getElementById('canvas').classList.add('d-none');
                 }, 1000);
             }
         }, 200);

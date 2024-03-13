@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odyssey Lost World</title>
-    <link rel="icon" type="image/x-icon" href="./img/">
+    <link rel="icon" type="image/x-icon" href="/img/img.png">
     <link rel="stylesheet" href="style.css">
     <script src="classes/drawable-object.class.js"></script>
     <script src="classes/status-bar.class.js"></script>
@@ -26,18 +27,24 @@
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
 </head>
+
 <body onload="init()">
-    <h1>Talon's Odyssey: The Lost World</h1>
-
-    <canvas id="canvas" width="720" height="480"></canvas>
-
-    <p class="story">
-        Talon, ein mutiger junger Bogenschütze, lebte in einem friedlichen Dorf, das von einer dichten Waldlandschaft umgeben war. Als das Dorf von einer finsteren Macht bedroht wurde, entschied sich Talon, sein Schicksal in die Hand zu nehmen. Inspiriert von den Legenden der alten Helden, zog er los, um das Geheimnis der verlorenen Welt zu enthüllen.
-        <br>
-        <br>
-        Auf seiner Reise durchquerte Talon gefährliche Wälder, tiefe Schluchten und antike Ruinen, stets auf der Hut vor den Gefahren, die in der Wildnis lauerten. Sein Bogen war seine treue Waffe, während er sich mutig jedem Hindernis stellte, das sich ihm in den Weg stellte.
-        <br>
-        <br>
-        Schließlich erreichte Talon das Herz der verlorenen Welt, wo ein uralter Drache auf ihn wartete, dessen finstere Präsenz das Land in Angst und Schrecken versetzte. Es war an Talon, sein ganzes Können und seinen Mut zu beweisen, während er sich dem Drachen im entscheidenden Kampf stellt um das Schicksal seines Dorfes und der Welt zu verändern.</p>
+    <h1>Talon's Odyssey: The Lost World
+    </h1>
+    <main id="main-container" class="flex column center2">
+        <div id="main-buttons" class="main-buttons flex column space-between">
+            <button onclick="startGame()" class="main-button">Start</button>
+            <button onclick="showKeyBindings()" class="main-button">Tasten</button>
+            <button onclick="showStory()" class="main-button">Die geschichte</button>
+        </div>
+    
+        <div id="card" class="card-background d-none" onclick="closeCard()"></div>
+    
+        <div class="footer-buttons flex">
+            <button onclick="showImpressum()" class="footer-button">Impressum</button>
+            <button onclick="showDatenschutz()" class="footer-button">Datenschutz</button>
+        </div>
+    </main>
 </body>
+
 </html>
