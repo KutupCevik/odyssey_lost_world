@@ -4,13 +4,15 @@ class World {
     canvas;
     ctx;
     keyboard;
-    coin = new Audio('audio/coin.mp3');
-    punch = new Audio('audio/punch.mp3');
-    knife = new Audio('audio/knife.mp3');
-    jump_hit = new Audio('audio/jump-hit.wav');
     camera_x = 0;
     coins = 0;
     arrows = 0;
+    coin = new Audio('audio/coin.mp3');
+    punch = new Audio('audio/punch.mp3');
+    dragonPunch = new Audio('audio/dragon-punch.mp3');
+    knife = new Audio('audio/knife.mp3');
+    jump_hit = new Audio('audio/jump-hit.wav');
+    backgroundMusic = new Audio('audio/background-music.mp3');
     healthBarImgs = [
         'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
         'img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
@@ -18,6 +20,14 @@ class World {
         'img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
         'img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
         'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png',
+    ];
+    healthBarImgsBoss = [
+        'img/7_statusbars/1_statusbar/2_statusbar_health/orange/0.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/orange/20.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/orange/40.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/orange/60.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/orange/80.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png',
     ];
     arrowBarImgs = [
         'img/6_objects/Arrow-2.png',
@@ -28,7 +38,7 @@ class World {
     healthBar = new StatusBar(this.healthBarImgs, 200, 60, 10, 0, 100);
     arrowBar = new StatusBar(this.arrowBarImgs, 50, 50, 130, 60, 0);
     coinBar = new StatusBar(this.coinBarImgs, 40, 40, 20, 65, 0);
-    healthBarBoss = new StatusBar(this.healthBarImgs, 200, 60, 500, 0, 100);
+    healthBarBoss = new StatusBar(this.healthBarImgsBoss, 200, 60, 500, 0, 100);
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -72,7 +82,9 @@ class World {
                     if (!enemy.isHurt(300)) {
                         enemy.hit(20);
                         this.jump_hit.play();
-                        this.healthBarBoss.setPercentage(enemy.energy, this.healthBarImgs);
+                        if (enemy instanceof Endboss) {
+                            this.healthBarBoss.setPercentage(enemy.energy, this.healthBarImgsBoss);
+                        }
                     }
                     this.character.jump(12);
                 } else {
@@ -86,7 +98,7 @@ class World {
                         this.knife.play();
                     }
                     if (enemy instanceof Endboss) {
-                        this.punch.play();
+                        this.dragonPunch.play();
                     }
                 }
             }
@@ -95,7 +107,9 @@ class World {
                     enemy.hit(20);
                     this.removeThrowObjects(arrow);
                     this.arrows--
-                    this.healthBarBoss.setPercentage(enemy.energy, this.healthBarImgs);
+                    if (enemy instanceof Endboss) {
+                        this.healthBarBoss.setPercentage(enemy.energy, this.healthBarImgsBoss);
+                    }
                 }
             });
         });

@@ -3,8 +3,6 @@ class Character extends MovableObject {
     y = 230;
     world;
     speed = 5.2;
-    walking_sound = new Audio('audio/footsteps.mp3');
-    jump_sound = new Audio('audio/jump.mp3');
     offset = {
         top: 90,
         left: 60,
@@ -12,7 +10,8 @@ class Character extends MovableObject {
         bottom: 0,
     };
     energy = 100;
-
+    walking_sound = new Audio('audio/footsteps.mp3');
+    jump_sound = new Audio('audio/jump.mp3');
     IMAGES_IDLE = [
         'img/2_character/Archer/1_idle/Idle-1.png',
         'img/2_character/Archer/1_idle/Idle-2.png',
@@ -100,10 +99,6 @@ class Character extends MovableObject {
                     this.changeVolume(this.walking_sound, 0.5);
                     this.walking_sound.play();
                 }
-                // this.world.level.backgroundObjects.forEach((backgroundImg) => {
-                //     backgroundImg.x += backgroundImg.paralax;
-                //     // console.log(backgroundImg.paralax);
-                // });
             }
             if (this.world.keyboard.LEFT && this.x > -680 ) {
                 this.moveLeft();
@@ -112,15 +107,9 @@ class Character extends MovableObject {
                     this.changePlaybackRate(this.walking_sound, 1.5);
                     this.walking_sound.play();
                 }
-                // this.world.level.backgroundObjects.forEach((backgroundImg) => {
-                //     backgroundImg.x -= backgroundImg.paralax;
-                //     // console.log(backgroundImg.paralax);
-                // });
             }
             if (this.world.keyboard.SPACE == true) {
                 this.jump_sound.play();
-                // this.jump_sound2.play();
-                
             }
             this.world.camera_x = -this.x + 30;
             if (this.isDead()) {
@@ -158,8 +147,5 @@ class Character extends MovableObject {
                 }, 1000);
             }
         }, 100);
-    }
-    clearAllIntervals() {
-        for (let i = 1; i < 9999; i++) window.clearInterval(i);
     }
 }

@@ -106,6 +106,10 @@ class MovableObject extends DrawableObject {
         }, 1000 / 50);
     }
 
+    clearAllIntervals() {
+        for (let i = 1; i < 9999; i++) window.clearInterval(i);
+    }
+
     changePlaybackRate(sound, rate) {
         sound.playbackRate = rate;
     }

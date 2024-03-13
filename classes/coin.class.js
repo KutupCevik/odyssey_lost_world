@@ -1,7 +1,6 @@
 class Coin extends DrawableObject {
     width = 40;
     height = 40;
-    coin = new Audio('audio/coin-1.mp3');
     offset = {
         top: 0,
         left: 0,

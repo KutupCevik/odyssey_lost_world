@@ -2,7 +2,6 @@ class Plent extends MovableObject {
     y = 285;
     height = 160;
     width = 160;
-    hit_sound = new Audio('audio/enemy_punch.mp3');
     world;
     energy = 10;
     offset = {
@@ -11,6 +10,7 @@ class Plent extends MovableObject {
         right: 60,
         bottom: 0,
     };
+    hit_sound = new Audio('audio/punch.mp3');
     IMAGES_WALKING = [
         'img/3_enemies/Plent/2_walk/Walk-1.png',
         'img/3_enemies/Plent/2_walk/Walk-2.png',
@@ -54,10 +54,6 @@ class Plent extends MovableObject {
         let move = setInterval(() => {
             if (this.isColliding(this.world.character) && !this.world.character.isDead()) {
                 this.playAnimations(this.IMAGES_ATTACK);
-                this.hit_sound.play();
-                setTimeout(() => {
-                    this.hit_sound.pause();
-                }, 1000);
             }
             else {
                 this.playAnimations(this.IMAGES_WALKING);
