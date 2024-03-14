@@ -3,13 +3,15 @@ let world;
 let keyboard = new Keyboard();
 
 
-function init() { }
+function init() {
+}
 
 
 function startGame() {
     document.getElementById('main-container').innerHTML = canvasHTML();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    bindBtsPressEvents();
 }
 
 
@@ -200,6 +202,49 @@ window.addEventListener('keyup', (e) => {
 });
 
 
+function bindBtsPressEvents() {
+    document.getElementById('left-button').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = true;
+    });
+
+    document.getElementById('left-button').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = false;
+    });
+
+    document.getElementById('right-button').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = true;
+    });
+
+    document.getElementById('right-button').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = false;
+    });
+
+    document.getElementById('up-button').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.UP = true;
+    });
+
+    document.getElementById('up-button').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.UP = false;
+    });
+
+    document.getElementById('shoot-button').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.F = true;
+    });
+
+    document.getElementById('shoot-button').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.F = false;
+    });
+}
+
+
 function canvasHTML() {
     return /*html*/`
         <div class="canvas-container">
@@ -215,7 +260,7 @@ function canvasHTML() {
             </div>
             <div class="hud-buttons-segment">
                 <img id="up-button" class="hud-button" src="img/UI/hud/up-arrow.png" alt="">
-                <img id="shott-button" class="hud-button" src="img/UI/hud/aim.png" alt="">
+                <img id="shoot-button" class="hud-button" src="img/UI/hud/aim.png" alt="">
             </div>
     </div>
             <canvas id="canvas" class="" width="720" height="480"></canvas>
