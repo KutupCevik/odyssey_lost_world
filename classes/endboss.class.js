@@ -120,10 +120,12 @@ class Endboss extends MovableObject {
             if (this.isDead()) {
                 clearInterval(idle);
                 this.dead(this.IMAGES_DEAD);
+                stopSound();
                 this.world.winn.play();
                 setTimeout(() => {
                     clearAllIntervals();
                     stopSound();
+                    winScreen();
                 }, 1000);
             }
         }, 200);

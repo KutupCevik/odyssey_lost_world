@@ -3,15 +3,25 @@ let world;
 let keyboard = new Keyboard();
 
 
-function init() {}
+function init() { }
 
 
 function startGame() {
     document.getElementById('main-container').innerHTML = canvasHTML();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    document.getElementById('canvas').classList.remove('d-none');
 }
+
+
+function winScreen() {
+    document.getElementById('main-container').innerHTML = winScreenHTML();
+}
+
+
+function looseScreen() {
+    document.getElementById('main-container').innerHTML = looseScreenHTML();
+}
+
 
 function backtoStart() {
     location.reload()
@@ -50,7 +60,10 @@ function closeCard() {
     document.getElementById('card').classList.add('d-none');
 }
 
+
 function soundMute() {
+    document.getElementById('sound').src = 'img/UI/music-off.png';
+    document.getElementById('sound').setAttribute('onclick', 'soundOn()')
     world.coin.muted = true;
     world.punch.muted = true;
     world.dragonPunch.muted = true;
@@ -65,10 +78,14 @@ function soundMute() {
     world.dragonRoar.muted = true;
     world.dragonGrowl.muted = true;
     world.winn.muted = true;
+    world.loose.muted = true;
+
 }
 
 
 function soundOn() {
+    document.getElementById('sound').src = 'img/UI/music.png';
+    document.getElementById('sound').setAttribute('onclick', 'soundMute()')
     world.coin.muted = false;
     world.punch.muted = false;
     world.dragonPunch.muted = false;
@@ -83,6 +100,7 @@ function soundOn() {
     world.dragonRoar.muted = false;
     world.dragonGrowl.muted = false;
     world.winn.muted = false;
+    world.loose.muted = false;
 }
 
 
@@ -100,15 +118,28 @@ function stopSound() {
     world.hit_sound_plent.pause();
     world.dragonRoar.pau;
     world.dragonGrowl.pause();
-    world.winn.pause();
 }
 
 
-function fullscreen() {
+function enterFullscreen() {
+    if (canvas.requestFullscreen) {
+        canvas.requestFullscreen();
+    } else if (canvas.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
+        canvas.msRequestFullscreen();
+    } else if (canvas.webkitRequestFullscreen) {  // iOS Safari
+        canvas.webkitRequestFullscreen();
+    }
 }
 
 
-function windowedFullscreen() {}
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    }
+}
+
 
 function clearAllIntervals() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
@@ -173,15 +204,43 @@ function canvasHTML() {
     return /*html*/`
         <div class="canvas-container">
             <div class="ui-buttons">
-                <img id="soundMute" onclick="soundMute()" src="img/UI/music.png" alt="">
-                <img id="soundOn" onclick="soundOn()" src="img/UI/music-off.png" alt="">
-                <img id="fullscreen" onclick="fullscreen()" src="img/UI/fullscreen.png" alt="">
-                <img id="windowed-fullscreen" onclick="windowedFullscreen()" src="img/UI/fullscreen-off.png" alt="">
+                <img id="sound" onclick="soundMute()" src="img/UI/music.png" alt="">
+                <img id="fullscreen" onclick="enterFullscreen()" src="img/UI/fullscreen.png" alt="">
+                <img id="back-button" class="back-button" onclick="backtoStart()" src="img/UI/close.png" alt="">
             </div>
+            <div class="hud-buttons">
+            <div class="hud-buttons-segment">
+                <img id="left-button" class="hud-button" src="img/UI/hud/left-arrow.png" alt="">
+                <img id="right-button" class="hud-button" src="img/UI/hud/right-arrow.png" alt="">
+            </div>
+            <div class="hud-buttons-segment">
+                <img id="up-button" class="hud-button" src="img/UI/hud/up-arrow.png" alt="">
+                <img id="shott-button" class="hud-button" src="img/UI/hud/aim.png" alt="">
+            </div>
+    </div>
             <canvas id="canvas" class="" width="720" height="480"></canvas>
         </div>
-        <button class="back-button" onclick="backtoStart()">Zurück</button>
     `;
+}
+
+
+function winScreenHTML() {
+    return /*html*/`
+        <div class="endscreen">
+            <span>You Win!</span>
+            <button onclick="backtoStart()">Back to Lobby</button>
+        </div>
+    `;
+}
+
+
+function looseScreenHTML() {
+    return /*html*/`
+    <div class="endscreen">
+        <span>You Loosw!</span>
+        <button onclick="backtoStart()">Back to Lobby</button>
+    </div>
+`;
 }
 
 

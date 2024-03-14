@@ -21,6 +21,7 @@ class World {
     dragonRoar = new Audio('audio/dragon-roar.mp3');
     dragonGrowl = new Audio('audio/dragon-growl.mp3');
     winn = new Audio('audio/winning-sound.mp3');
+    loose = new Audio('audio/loose.mp3');
     healthBarImgs = [
         'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
         'img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',

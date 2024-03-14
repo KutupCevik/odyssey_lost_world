@@ -140,9 +140,12 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 clearInterval(idle);
                 this.dead(this.IMAGES_DEAD);
+                stopSound();
+                this.world.loose.play();
                 setTimeout(() => {
                 clearAllIntervals();
                 stopSound();
+                looseScreen();
                 }, 1000);
             }
         }, 100);

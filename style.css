@@ -29,6 +29,39 @@ canvas {
     align-items: center;
 }
 
+.hud-buttons {
+    width: 700px;
+    position: absolute;
+    bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    z-index: 1;
+}
+
+.hud-buttons-segment {
+    display: flex;
+    gap: 20px;
+}
+
+.hud-button {
+    height: 48px;
+}
+
+.endscreen {
+    width: 720px;
+    aspect-ratio: 1.5 / 1;
+    background-color: black;
+    color: white;
+    font-family: PublicPixel;
+    font-size: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
 .ui-buttons {
     position: absolute;
     top: 5px;
@@ -113,11 +146,10 @@ h1 {
 .main-button {
     min-width: 200px;
     height: 70px;
-    font-size: 1.1em;
+    font-size: large;
     cursor: pointer;
     background-color: #aedecb;
     color: black;
-    font-size: larger;
     font-weight: 700;
     border: none;
     border-radius: 5px;
@@ -147,7 +179,7 @@ h1 {
 .footer-button {
     width: 130px;
     height: 40px;
-    font-size: 1.1em;
+    font-size: 16px;
     cursor: pointer;
     background-color: #171717;
     color: #fff;
