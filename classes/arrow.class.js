@@ -1,3 +1,8 @@
+/**
+ * Class representing an arrow object with animation capabilities.
+ * @memberof DrawableObject
+ * @extends DrawableObject
+ */
 class Arrow extends DrawableObject {
     width = 26;
     height = 50;
@@ -18,6 +23,11 @@ class Arrow extends DrawableObject {
         'img/6_objects/Arrow2.png',
     ];
 
+    /**
+     * Constructor for the Arrow class.
+     * @param {number} x - The x-coordinate of the arrow.
+     * @param {number} y - The y-coordinate of the arrow.
+     */
     constructor(x, y) {
         super().loadImage(this.ARROW_IMAGES[0]);
         this.loadImages(this.ARROW_IMAGES);
@@ -26,6 +36,9 @@ class Arrow extends DrawableObject {
         this.animate();
     }
 
+    /**
+     * Animates the arrow by playing animations for arrow images at regular intervals.
+     */
     animate() {
         setInterval(() => {
             this.playAnimations(this.ARROW_IMAGES);

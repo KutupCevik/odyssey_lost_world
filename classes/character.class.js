@@ -1,6 +1,11 @@
+/**
+ * Class representing a character object.
+ * @memberof MovableObject
+ * @extends MovableObject
+ */
 class Character extends MovableObject {
     x = 0;
-    y = 230;
+    y = 220;
     world;
     speed = 5.2;
     offset = {
@@ -86,68 +91,186 @@ class Character extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Animates the character by handling its movement and animation states.
+     */
     animate() {
-        let sixtyFPS = setInterval(() => {
-            this.world.walking_sound.pause();
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.speedX == 0) {
-                this.moveRight();
-                this.otherDirection = false;
-                if (!this.isAboveGround()) {
-                    this.changePlaybackRate(this.world.walking_sound, 1.5);
-                    this.changeVolume(this.world.walking_sound, 0.5);
-                    this.world.walking_sound.play();
-                }
-            }
-            if (this.world.keyboard.LEFT && this.x > -680 ) {
-                this.moveLeft();
-                this.otherDirection = true;
-                if (!this.isAboveGround()) {
-                    this.changePlaybackRate(this.world.walking_sound, 1.5);
-                    this.world.walking_sound.play();
-                }
-            }
-            if (this.world.keyboard.SPACE == true) {
-                this.world.jump_sound.play();
-            }
-            this.world.camera_x = -this.x + 30;
-            if (this.isDead()) {
-                clearInterval(sixtyFPS);
-                this.world.walking_sound.pause();
-            }
-        }, 1000 / 60);
+        this.characterIsMoving();
+        this.characterMovingAnimation();
+    }
 
+    /**
+     * Handles the character's movement based on keyboard input.
+     */
+    characterIsMoving() {
+        let sixtyFPS = setInterval(() => {
+            this.characterMoveRight();
+            this.characterMoveLeft();
+            this.characterJump();
+            this.world.camera_x = -this.x + 30;
+            this.characterDead(sixtyFPS);
+        }, 1000 / 60);
+    }
+
+    /**
+     * Performs animation based on character's movement states.
+     */
+    characterMovingAnimation() {
         let idle = setInterval(() => {
-            if (this.world.keyboard.RIGHT == false && this.world.keyboard.LEFT == false) {
-                this.playAnimations(this.IMAGES_IDLE);
+            this.characterIdleAnimation();
+            this.characterJumpOrWalkAnimation();
+            this.characterHurtAnimation();
+            this.characterAttack();
+            this.characterDeadAnimationAndGameOver(idle);
+        }, 100);
+    }
+
+    /**
+     * Moves the character to the right if possible.
+     */
+    characterMoveRight() {
+        if (this.canMoveRight()) {
+            this.moveRight();
+            if (!this.isAboveGround()) {
+                this.changePlaybackRate(this.world.walking_sound, 1.5);
+                this.world.walking_sound.play();
             }
-            if (this.isAboveGround()) {
-                this.playAnimations(this.IMAGES_JUMP);
-                this.world.walking_sound.pause();
-            } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.playAnimations(this.IMAGES_WALKING);
-                }
-                if (this.world.keyboard.UP && !this.isAboveGround()) {
-                    this.jump(15);
-                }
+        }
+    }
+
+    /**
+     * Moves the character to the left if possible.
+     */
+    characterMoveLeft() {
+        if (this.canMoveLeft()) {
+            this.moveLeft();
+            if (!this.isAboveGround()) {
+                this.world.walking_sound.play();
             }
-            if (this.isHurt()) {
-                this.playAnimations(this.IMAGES_HURT);
+        }
+    }
+
+    /**
+     * Moves the character to the right.
+     */
+    moveRight() {
+        super.moveRight();
+        this.otherDirection = false;
+    }
+
+    /**
+     * Moves the character to the left.
+     */
+    moveLeft() {
+        super.moveLeft();
+        this.otherDirection = true;
+    }
+
+    /**
+     * Makes the character jump if conditions are met.
+     */
+    characterJump() {
+        if (this.canJump()) {
+            this.jump(15);
+            this.world.jump_sound.play();
+        }
+    }
+
+    /**
+     * Checks if the character is dead and stops animation loop.
+     */
+    characterDead(sixtyFPS) {
+        if (this.isDead()) {
+            clearInterval(sixtyFPS);
+            this.world.walking_sound.pause();
+        }
+    }
+
+    /**
+     * Animates the character's idle state.
+     */
+    characterIdleAnimation() {
+        if (this.world.keyboard.RIGHT == false && this.world.keyboard.LEFT == false) {
+            this.playAnimations(this.IMAGES_IDLE);
+            this.world.walking_sound.pause();
+        }
+    }
+
+    /**
+     * Animates the character's jump or walk state.
+     */
+    characterJumpOrWalkAnimation() {
+        if (this.isAboveGround()) {
+            this.characterJumpAnimation();
+            this.world.walking_sound.pause();
+        } else {
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playAnimations(this.IMAGES_WALKING);
             }
-            if (this.world.keyboard.F && !this.isDead() && (this.world.arrows > 0)) {
-                this.playAnimations(this.IMAGES_ATTACK);
-            }
-            if (this.isDead()) {
-                clearInterval(idle);
-                this.dead(this.IMAGES_DEAD);
-                stopSound();
-                this.world.loose.play();
-                setTimeout(() => {
+        }
+    }
+
+    /**
+     * Animates the character's jump state.
+     */
+    characterJumpAnimation() {
+        this.playAnimations(this.IMAGES_JUMP);
+        this.world.walking_sound.pause();
+    }
+
+    /**
+     * Animates the character's hurt state.
+     */
+    characterHurtAnimation() {
+        if (this.isHurt()) {
+            this.playAnimations(this.IMAGES_HURT);
+        }
+    }
+
+    /**
+     * Initiates attack animation if conditions are met.
+     */
+    characterAttack() {
+        if (this.world.keyboard.F && !this.isDead() && (this.world.arrows > 0)) {
+            this.playAnimations(this.IMAGES_ATTACK);
+        }
+    }
+
+    /**
+     * Initiates dead animation and handles game over if character is dead.
+     */
+    characterDeadAnimationAndGameOver(idle) {
+        if (this.isDead()) {
+            clearInterval(idle);
+            this.dead(this.IMAGES_DEAD);
+            stopSound();
+            this.world.loose.play();
+            setTimeout(() => {
                 clearAllIntervals();
                 stopSound();
                 looseScreen();
-                }, 1000);
-            }
-        }, 100);
+            }, 1000);
+        }
+    }
+
+    /**
+     * Checks if character can move to the right.
+     */
+    canMoveRight() {
+        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.speedX == 0;
+    }
+
+    /**
+     * Checks if character can move to the left.
+     */
+    canMoveLeft() {
+        return this.world.keyboard.LEFT && this.x > -680;
+    }
+
+    /**
+     * Checks if character can jump.
+     */
+    canJump() {
+        return this.world.keyboard.UP && !this.isAboveGround()
     }
 }

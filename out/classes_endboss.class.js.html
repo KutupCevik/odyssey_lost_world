@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: classes/endboss.class.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: classes/endboss.class.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Class representing an end boss object.
+ * @memberof MovableObject
+ * @extends MovableObject
+ */
+class Endboss extends MovableObject {
+    y = -50;
+    x = 2800;
+    height = 650;
+    width = 650;
+    speed = 1;
+    world;
+    firstContact = false;
+    energy = 100;
+    offset = {
+        top: 380,
+        left: 130,
+        right: 130,
+        bottom: 170,
+    };
+    IMAGES_IDLE = [
+        'img/4_enemie_boss/dragon/Idle1.png',
+        'img/4_enemie_boss/dragon/Idle2.png',
+        'img/4_enemie_boss/dragon/Idle3.png',
+        'img/4_enemie_boss/dragon/Idle4.png',
+    ];
+    IMAGES_WALKING = [
+        'img/4_enemie_boss/dragon/1_walk/Walk1.png',
+        'img/4_enemie_boss/dragon/1_walk/Walk2.png',
+        'img/4_enemie_boss/dragon/1_walk/Walk3.png',
+        'img/4_enemie_boss/dragon/1_walk/Walk4.png',
+        'img/4_enemie_boss/dragon/1_walk/Walk5.png',
+    ];
+    IMAGES_HURT = [
+        'img/4_enemie_boss/dragon/4_hurt/Hurt1.png',
+        'img/4_enemie_boss/dragon/4_hurt/Hurt2.png',
+    ];
+    IMAGES_DEAD = [
+        'img/4_enemie_boss/dragon/5_dead/Death1.png',
+        'img/4_enemie_boss/dragon/5_dead/Death2.png',
+        'img/4_enemie_boss/dragon/5_dead/Death3.png',
+        'img/4_enemie_boss/dragon/5_dead/Death4.png',
+    ];
+    IMAGES_ATTACK = [
+        'img/4_enemie_boss/dragon/3_attack/Attack1.png',
+        'img/4_enemie_boss/dragon/3_attack/Attack2.png',
+    ];
+    IMAGES_FIRE_ATTACK = [
+        'img/4_enemie_boss/dragon/3_attack/Fire_Attack1.png',
+        'img/4_enemie_boss/dragon/3_attack/Fire_Attack2.png',
+        'img/4_enemie_boss/dragon/3_attack/Fire_Attack3.png',
+        'img/4_enemie_boss/dragon/3_attack/Fire_Attack4.png',
+        'img/4_enemie_boss/dragon/3_attack/Fire_Attack5.png',
+        'img/4_enemie_boss/dragon/3_attack/Fire_Attack6.png',
+    ];
+
+    /**
+     * Constructor for the Endboss class.
+     */
+    constructor() {
+        super().loadImage(this.IMAGES_IDLE[0]);
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_FIRE_ATTACK);
+    }
+
+    /**
+     * Initiates animations for the end boss.
+     */
+    animate() {
+        this.bossIsMoving();
+        this.bossMovinAnimation();
+    }
+
+    /**
+     * Initiates movement animation for the end boss.
+     */
+    bossIsMoving() {
+        let sixtyFPS = setInterval(() => {
+            if (this.canMoveLeft())
+                this.moveLeft();
+            if (this.isDead())
+                clearInterval(sixtyFPS);
+        }, 1000 / 60);
+    }
+
+    /**
+     * Initiates various animations for the end boss.
+     */
+    bossMovinAnimation() {
+        let idle = setInterval(() => {
+            this.bossGrowlInDistance();
+            this.bossRoar();
+            if (this.isHurt()) {
+                this.hurtAnimation();
+            } else if (this.isCloseToCharacter()) {
+                this.attackAnimation();
+            } else if (this.firstContact) {
+                this.walkAnimation();
+            } else
+                this.idleAnimation();
+            if (this.isOffScreen())
+                this.bossOffsetDead();
+            if (this.isDead())
+                this.bossDeath(idle);
+        }, 200);
+    }
+
+    /**
+     * Triggers a growl sound effect if the character approaches the boss.
+     */
+    bossGrowlInDistance() {
+        if (world.character.x > 2400) {
+            this.firstContact = true;
+            this.world.dragonGrowl.play();
+        }
+    }
+
+    /**
+     * Triggers a roar sound effect if conditions are met.
+     */
+    bossRoar() {
+        if (this.canRoar()) {
+            this.world.dragonRoar.play();
+        }
+    }
+
+    /**
+     * Initiates hurt animation for the boss.
+     */
+    hurtAnimation() {
+        this.playAnimations(this.IMAGES_HURT);
+        this.offset = {
+            top: 380,
+            left: 130,
+            right: 130,
+            bottom: 170,
+        };
+        this.applyRecoil(10);
+    }
+
+    /**
+     * Initiates attack animation for the boss.
+     */
+    attackAnimation() {
+        this.playAnimations(this.IMAGES_ATTACK);
+        this.applyRecoil(10);
+        this.offset = {
+            top: 250,
+            left: 230,
+            right: 290,
+            bottom: 170,
+        };
+    }
+
+    /**
+     * Initiates walk animation for the boss.
+     */
+    walkAnimation() {
+        this.playAnimations(this.IMAGES_WALKING);
+        this.offset = {
+            top: 380,
+            left: 130,
+            right: 130,
+            bottom: 170,
+        };
+    }
+
+    /**
+     * Initiates idle animation for the boss.
+     */
+    idleAnimation() {
+        this.playAnimations(this.IMAGES_IDLE);
+        this.offset = {
+            top: 380,
+            left: 130,
+            right: 130,
+            bottom: 170,
+        };
+    }
+
+    /**
+     * Handles boss offset when it is dead.
+     */
+    bossOffsetDead() {
+        this.energy = 0;
+        this.world.healthBarBoss.setPercentage(enemy.energy, this.healthBarImgsBoss);
+    }
+
+    /**
+     * Handles boss death animation and game over.
+     */
+    bossDeath(idleInterval) {
+        clearInterval(idleInterval);
+        this.dead(this.IMAGES_DEAD);
+        stopSound();
+        this.world.winn.play();
+        setTimeout(() => {
+            clearAllIntervals();
+            stopSound();
+            winScreen();
+        }, 1000);
+    }
+
+    /**
+     * Checks if the character is close to the boss.
+     * @returns {boolean} - True if the character is close to the boss, otherwise false.
+     */
+    isCloseToCharacter() {
+        return this.x - this.world.character.x &lt; 70 &amp;&amp; this.x - this.world.character.x > -10;
+    }
+
+    /**
+     * Checks if the boss can move to the left.
+     * @returns {boolean} - True if the boss can move to the left, otherwise false.
+     */
+    canMoveLeft() {
+        return !this.isHurt() &amp;&amp; !this.isColliding(this.world.character) &amp;&amp; this.firstContact;
+    }
+
+    /**
+     * Checks if the boss can roar.
+     * @returns {boolean} - True if the boss can roar, otherwise false.
+     */
+    canRoar() {
+        return world.character.x > 1400 &amp;&amp; world.character.x &lt; 1420;
+    }
+
+    /**
+     * Checks if the boss is off the screen.
+     * @returns {boolean} - True if the boss is off the screen, otherwise false.
+     */
+    isOffScreen() {
+        return this.x &lt; -620;
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="DrawableObject.Arrow.html">Arrow</a></li><li><a href="DrawableObject.Coin.html">Coin</a></li><li><a href="DrawableObject.MovableObject.html">MovableObject</a></li><li><a href="DrawableObject.StatusBar.html">StatusBar</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.Apple.html">Apple</a></li><li><a href="MovableObject.BackgroundObject.html">BackgroundObject</a></li><li><a href="MovableObject.Character.html">Character</a></li><li><a href="MovableObject.Cloud.html">Cloud</a></li><li><a href="MovableObject.Endboss.html">Endboss</a></li><li><a href="MovableObject.LyingObject.html">LyingObject</a></li><li><a href="MovableObject.Plent.html">Plent</a></li><li><a href="MovableObject.Skeleton.html">Skeleton</a></li><li><a href="MovableObject.ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#backtoStart">backtoStart</a></li><li><a href="global.html#bindBtsPressEvents">bindBtsPressEvents</a></li><li><a href="global.html#canvasHTML">canvasHTML</a></li><li><a href="global.html#clearAllIntervals">clearAllIntervals</a></li><li><a href="global.html#closeCard">closeCard</a></li><li><a href="global.html#datenschutzHTML">datenschutzHTML</a></li><li><a href="global.html#doNotClose">doNotClose</a></li><li><a href="global.html#enterFullscreen">enterFullscreen</a></li><li><a href="global.html#exitFullscreen">exitFullscreen</a></li><li><a href="global.html#hudButtons">hudButtons</a></li><li><a href="global.html#hudButtonsHTML">hudButtonsHTML</a></li><li><a href="global.html#impressumHTML">impressumHTML</a></li><li><a href="global.html#keyBindingsHTML">keyBindingsHTML</a></li><li><a href="global.html#looseScreen">looseScreen</a></li><li><a href="global.html#looseScreenHTML">looseScreenHTML</a></li><li><a href="global.html#openCard">openCard</a></li><li><a href="global.html#rotatePhoneHTML">rotatePhoneHTML</a></li><li><a href="global.html#setStoppableInterval">setStoppableInterval</a></li><li><a href="global.html#showDatenschutz">showDatenschutz</a></li><li><a href="global.html#showImpressum">showImpressum</a></li><li><a href="global.html#showKeyBindings">showKeyBindings</a></li><li><a href="global.html#showStory">showStory</a></li><li><a href="global.html#soundMute">soundMute</a></li><li><a href="global.html#soundOn">soundOn</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopSound">stopSound</a></li><li><a href="global.html#storyHTML">storyHTML</a></li><li><a href="global.html#winScreen">winScreen</a></li><li><a href="global.html#winScreenHTML">winScreenHTML</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 17 2024 03:50:34 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

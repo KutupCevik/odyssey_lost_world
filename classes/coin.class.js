@@ -1,3 +1,8 @@
+/**
+ * Class representing a coin object.
+ * @memberof DrawableObject
+ * @extends DrawableObject
+ */
 class Coin extends DrawableObject {
     width = 40;
     height = 40;
@@ -16,6 +21,11 @@ class Coin extends DrawableObject {
         'img/6_objects/gold coin/coin6.png',
     ];
 
+    /**
+     * Constructor for the Coin class.
+     * @param {number} x - The x-coordinate of the coin.
+     * @param {number} y - The y-coordinate of the coin.
+     */
     constructor(x, y) {
         super().loadImage(this.COIN_IMAGES[0]);
         this.loadImages(this.COIN_IMAGES);
@@ -24,6 +34,9 @@ class Coin extends DrawableObject {
         this.animate();
     }
 
+    /**
+     * Animates the coin by playing animations for coin images at regular intervals.
+     */
     animate() {
         setInterval(() => {
             this.playAnimations(this.COIN_IMAGES);

@@ -1,5 +1,10 @@
+/**
+ * Class representing a plant enemy.
+ * @memberof MovableObject
+ * @extends MovableObject
+ */
 class Plent extends MovableObject {
-    y = 285;
+    y = 260;
     height = 160;
     width = 160;
     world;
@@ -31,6 +36,9 @@ class Plent extends MovableObject {
         'img/3_enemies/Plent/5_dead/Dead-1.png',
     ];
 
+    /**
+     * Creates an instance of Plent.
+     */
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -40,28 +48,48 @@ class Plent extends MovableObject {
         this.speed = 0.15 + Math.random() * 0.25;
     }
 
+    /**
+     * Initiates the animation for the Plent object.
+     */
     animate() {
-        let sixtyFPS = setInterval(() => {
-            if (!this.isHurt() && !this.isColliding(this.world.character)) {
-                this.moveLeft();
-            }
-            if (this.isDead()) {
-                clearInterval(sixtyFPS);
-            }
-        }, 1000 / 60);
+        this.plentIsMoving();
+        this.plentMovinAnimation();
+    }
 
+    /**
+     * Moves the Plent object.
+     */
+    plentIsMoving() {
+        let sixtyFPS = setInterval(() => {
+            if (this.canMove())
+                this.moveToCharacter(this);
+            if (this.isDead())
+                clearInterval(sixtyFPS);
+        }, 1000 / 60);
+    }
+
+    /**
+     * Animates the movement of the Plent object.
+     */
+    plentMovinAnimation() {
         let move = setInterval(() => {
-            if (this.isColliding(this.world.character) && !this.world.character.isDead()) {
+            if (this.isAttackingCharacter()) {
                 this.playAnimations(this.IMAGES_ATTACK);
                 this.world.hit_sound_plent.play();
             }
-            else {
-                this.playAnimations(this.IMAGES_WALKING);
-            }
+            else this.playAnimations(this.IMAGES_WALKING);
             if (this.isDead()) {
                 clearInterval(move);
                 this.dead(this.IMAGES_DEAD);
             }
         }, 100);
+    }
+
+    /**
+     * Checks if the Plent is attacking the character.
+     * @returns {boolean} True if the Plent is attacking the character, false otherwise.
+     */
+    isAttackingCharacter() {
+        return this.isColliding(this.world.character) && !this.world.character.isDead();
     }
 }

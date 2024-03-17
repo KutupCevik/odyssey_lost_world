@@ -6,7 +6,6 @@ body {
     font-family: Arial;
     background-image: url('img/odyssey-bg.png');
     background-position: center;
-    padding: 20px;
 }
 
 /* * {
@@ -17,6 +16,24 @@ canvas {
     background-color: black;
     display: block;
     position: relative;
+    aspect-ratio: 1.5 / 1;
+}
+
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    width: fit-content;
+    cursor: pointer;
+    background-color: #aedecb;
+}
+
+button:hover {
+    background-color: #b9ecd7;
+}
+
+button:active {
+    background-color: #7d9f92;
 }
 
 .canvas-container {
@@ -24,28 +41,37 @@ canvas {
     max-width: 720px;
     aspect-ratio: 1.5 / 1;
     position: relative;
+}
+
+.ui-and-hud-container {
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 .hud-buttons {
-    width: 700px;
+    width: 95%;
     position: absolute;
     bottom: 5px;
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
     gap: 10px;
     z-index: 1;
 }
 
+#shoot-button {
+    /* height: 60px; */
+}
+
 .hud-buttons-segment {
     display: flex;
+    align-items: baseline;
     gap: 20px;
 }
 
 .hud-button {
     height: 48px;
+    width: 48px;
 }
 
 .endscreen {
@@ -82,6 +108,21 @@ h1 {
     text-align: center;
 }
 
+#rotate-phone {
+    position: absolute;
+    top: 0;
+    background-color: black;
+    height: 100vh;
+    width: 100%;
+    color: white;
+    font-size:7vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
 .card-background {
     height: 100%;
     width: 100vw;
@@ -94,19 +135,18 @@ h1 {
 }
 
 .card {
-    height: 70vh;
+    height: 80vh;
     max-width: 400px;
     width: 300px;
     background-color: #aedecb;
     padding: 20px;
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    word-break: break-word;
 }
 
 .card-content {
-    overflow-y: auto;
-    margin-top: 20px;
 }
 
 .story {
@@ -136,6 +176,16 @@ h1 {
 
 .space-between {
     justify-content: space-between;
+}
+
+.keybin {
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+}
+
+.gap10 {
+    gap: 10px;
 }
 
 .main-buttons {
@@ -172,11 +222,11 @@ h1 {
         0 12px 10px -3px green;
 }
 
-.footer-buttons {
+.legal-notice-buttons {
     gap: 20px;
 }
 
-.footer-button {
+.legal-notice-button {
     width: 130px;
     height: 40px;
     font-size: 16px;
@@ -188,20 +238,35 @@ h1 {
     transition: all .4s;
 }
 
-.footer-button:hover {
+.legal-notice-button:hover {
     border-radius: 5px;
     transform: translateY(-10px);
+    background-color: #171717;
     box-shadow: 0 7px 0 -2px #fff,
         0 15px 0 -4px #39a2db,
         0 16px 10px -3px #39a2db;
 }
 
-.footer-button:active {
+.legal-notice-button:active {
     transition: all 0.2s;
     transform: translateY(-5px);
+    background-color: #171717;
     box-shadow: 0 2px 0 -2px #fff,
         0 8px 0 -4px #39a2db,
         0 12px 10px -3px #39a2db;
+}
+
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 
@@ -213,7 +278,7 @@ h1 {
 
 @media only screen and (max-height: 480px) {
     canvas {
-        height: 100vh;
+        max-height: 100vh;
     }
 }
 

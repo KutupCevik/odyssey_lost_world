@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: classes/movable-object.class.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: classes/movable-object.class.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Class representing a movable object.
+ * @memberof DrawableObject
+ * @extends DrawableObject
+ */
+class MovableObject extends DrawableObject {
+    speed = 0.15;
+    paralax = 0;
+    otherDirection = false;
+    speedY = 0;
+    speedX = 0;
+    acceleration = 1;
+    lastHit = 0;
+    energy = 100;
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    };
+
+    /**
+     * Applies gravity to the object, causing it to fall when not on the ground.
+     */
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAboveGround() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            } else
+                this.y = 220;
+        }, 1000 / 50);
+    }
+
+    /**
+     * Checks if the object is above the ground.
+     * @returns {boolean} True if the object is above the ground, false otherwise.
+     */
+    isAboveGround() {
+        if (this instanceof ThrowableObject) {
+            return true;
+        } else
+            return this.y &lt; 220;
+    }
+
+    /**
+     * Checks if the object is colliding with another object.
+     * @param {MovableObject} mo - The other object to check collision with.
+     * @returns {boolean} True if the object is colliding with the other object, false otherwise.
+     */
+    isColliding(mo) {
+        return this.x + this.width - this.offset.right > mo.x + mo.offset.left &amp;&amp;
+            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &amp;&amp;
+            this.x + this.offset.left &lt; mo.x + mo.width - mo.offset.right &amp;&amp;
+            this.y + this.offset.top &lt; mo.y + mo.height - mo.offset.bottom;
+    }
+
+    /**
+     * Checks if the object is colliding with another object from above.
+     * @param {MovableObject} enemy - The other object to check collision with.
+     * @returns {boolean} True if the object is colliding with the other object from above, false otherwise.
+     */
+    isCollidingFromAbove(enemy) {
+        return this.y + this.height - this.offset.bottom >= enemy.y + enemy.offset.top - 12 &amp;&amp;
+            this.y + this.height - this.offset.bottom &lt;= enemy.y + enemy.offset.top + 12 &amp;&amp;
+            !(this.x + this.width - this.offset.right >= enemy.x + enemy.offset.left - 5 &amp;&amp;
+                this.x + this.width - this.offset.right &lt;= enemy.x + enemy.offset.left + 5) &amp;&amp;
+            !(this.x + this.offset.left > enemy.x + enemy.width - enemy.offset.right - 5 &amp;&amp;
+                this.x + this.offset.left &lt; enemy.x + enemy.width - enemy.offset.right + 5)
+    }
+
+    /**
+     * Deals damage to the object.
+     * @param {number} damage - The amount of damage to deal.
+     */
+    hit(damage) {
+        this.energy -= damage;
+        if (this.energy &lt; 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    /**
+     * Checks if the object is hurt within a certain time period.
+     * @param {number} time - The time period to consider for hurt state.
+     * @returns {boolean} True if the object is hurt, false otherwise.
+     */
+    isHurt(time = 500) {
+        let timepassed = new Date().getTime() - this.lastHit; // ms
+        timepassed = timepassed / time; // s
+        return timepassed &lt; 1;
+    }
+
+    /**
+     * Checks if the object is dead.
+     * @returns {boolean} True if the object is dead, false otherwise.
+     */
+    isDead() {
+        return this.energy == 0;
+    }
+
+    /**
+     * Initiates death animation for the object.
+     * @param {Array} deadImgs - Array of image paths for death animation.
+     */
+    dead(deadImgs) {
+        this.currentImage = 0;
+        let deadInterval = setInterval(() => {
+            this.playAnimations(deadImgs);
+            if (this.currentImage >= deadImgs.length) {
+                clearInterval(deadInterval);
+            }
+        }, 100);
+    }
+
+    /**
+     * Moves the object to the right.
+     */
+    moveRight() {
+        this.x += this.speed;
+    }
+
+    /**
+     * Moves the object to the left.
+     */
+    moveLeft() {
+        this.x -= this.speed;
+    }
+
+    /**
+     * Checks if the object can move left.
+     * @returns {boolean} True if the object can move left, false otherwise.
+     */
+    canMoveLeft() {
+        return !this.isHurt() &amp;&amp; !this.isColliding(this.world.character);
+    }
+
+    /**
+     * Causes the object to jump.
+     * @param {number} jumpHeight - The height of the jump.
+     */
+    jump(jumpHeight) {
+        this.speedY = jumpHeight;
+    }
+
+    /**
+     * Applies recoil to the object.
+     * @param {number} speed - The speed of the recoil.
+     */
+    applyRecoil(speed = 15) {
+        this.speedX = speed;
+        if (this.energy > 20) {
+            this.jump(6);
+        }
+        let recoil = setInterval(() => {
+            if (this.speedX > 0 &amp;&amp; this.x > -680) {
+                this.x -= this.speedX;
+                this.speedX -= this.acceleration;
+            } else {
+                this.speedX = 0;
+                clearInterval(recoil);
+            }
+        }, 1000 / 50);
+    }
+
+    /**
+     * Changes the playback rate of a sound.
+     * @param {object} sound - The sound object to change playback rate for.
+     * @param {number} rate - The playback rate to set.
+     */
+    changePlaybackRate(sound, rate) {
+        sound.playbackRate = rate;
+    }
+
+    /**
+     * Changes the volume of a sound.
+     * @param {object} sound - The sound object to change volume for.
+     * @param {number} rate - The volume to set.
+     */
+    changeVolume(sound, rate) {
+        sound.volume = rate;
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="DrawableObject.Arrow.html">Arrow</a></li><li><a href="DrawableObject.Coin.html">Coin</a></li><li><a href="DrawableObject.MovableObject.html">MovableObject</a></li><li><a href="DrawableObject.StatusBar.html">StatusBar</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.Apple.html">Apple</a></li><li><a href="MovableObject.BackgroundObject.html">BackgroundObject</a></li><li><a href="MovableObject.Character.html">Character</a></li><li><a href="MovableObject.Cloud.html">Cloud</a></li><li><a href="MovableObject.Endboss.html">Endboss</a></li><li><a href="MovableObject.LyingObject.html">LyingObject</a></li><li><a href="MovableObject.Plent.html">Plent</a></li><li><a href="MovableObject.Skeleton.html">Skeleton</a></li><li><a href="MovableObject.ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#backtoStart">backtoStart</a></li><li><a href="global.html#bindBtsPressEvents">bindBtsPressEvents</a></li><li><a href="global.html#canvasHTML">canvasHTML</a></li><li><a href="global.html#clearAllIntervals">clearAllIntervals</a></li><li><a href="global.html#closeCard">closeCard</a></li><li><a href="global.html#datenschutzHTML">datenschutzHTML</a></li><li><a href="global.html#doNotClose">doNotClose</a></li><li><a href="global.html#enterFullscreen">enterFullscreen</a></li><li><a href="global.html#exitFullscreen">exitFullscreen</a></li><li><a href="global.html#hudButtons">hudButtons</a></li><li><a href="global.html#hudButtonsHTML">hudButtonsHTML</a></li><li><a href="global.html#impressumHTML">impressumHTML</a></li><li><a href="global.html#keyBindingsHTML">keyBindingsHTML</a></li><li><a href="global.html#looseScreen">looseScreen</a></li><li><a href="global.html#looseScreenHTML">looseScreenHTML</a></li><li><a href="global.html#openCard">openCard</a></li><li><a href="global.html#rotatePhoneHTML">rotatePhoneHTML</a></li><li><a href="global.html#setStoppableInterval">setStoppableInterval</a></li><li><a href="global.html#showDatenschutz">showDatenschutz</a></li><li><a href="global.html#showImpressum">showImpressum</a></li><li><a href="global.html#showKeyBindings">showKeyBindings</a></li><li><a href="global.html#showStory">showStory</a></li><li><a href="global.html#soundMute">soundMute</a></li><li><a href="global.html#soundOn">soundOn</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopSound">stopSound</a></li><li><a href="global.html#storyHTML">storyHTML</a></li><li><a href="global.html#winScreen">winScreen</a></li><li><a href="global.html#winScreenHTML">winScreenHTML</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 17 2024 03:50:34 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

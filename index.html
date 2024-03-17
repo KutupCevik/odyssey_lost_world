@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odyssey Lost World</title>
-    <link rel="icon" type="image/x-icon" href="/img/img.png">
+    <link rel="icon" type="image/x-icon" href="./img/img.png">
     <link rel="stylesheet" href="style.css">
     <script src="classes/drawable-object.class.js"></script>
     <script src="classes/status-bar.class.js"></script>
@@ -26,35 +26,24 @@
     <script src="classes/level.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
+    <script src="js/html.js"></script>
 </head>
 
-<body onload="init()">
-    <h1>Talon's Odyssey: The Lost World
-    </h1>
+<body>
     <main id="main-container" class="flex column center2">
+        <h1>Talon's Odyssey: The Lost World
+        </h1>
         <div id="main-buttons" class="main-buttons flex column space-between">
             <button onclick="startGame()" class="main-button">Start</button>
             <button onclick="showKeyBindings()" class="main-button">Tasten</button>
             <button onclick="showStory()" class="main-button">Die geschichte</button>
         </div>
-    
+        <div class="legal-notice-buttons flex">
+            <button onclick="showImpressum()" class="legal-notice-button">Impressum</button>
+            <button onclick="showDatenschutz()" class="legal-notice-button">Datenschutz</button>
+        </div>
         <div id="card" class="card-background d-none" onclick="closeCard()"></div>
-    
-        <div class="footer-buttons flex">
-            <button onclick="showImpressum()" class="footer-button">Impressum</button>
-            <button onclick="showDatenschutz()" class="footer-button">Datenschutz</button>
-        </div>
     </main>
-    <!-- <div class="hud-buttons">
-        <div class="hud-buttons-left">
-            <img id="shott-button" class="hud-button" onclick="shottButton()" src="img/UI/hud/aim.png" alt="">
-            <img id="left-button" class="hud-button" onclick="leftButton()" src="img/UI/hud/left-arrow.png" alt="">
-        </div>
-        <div class="hud-buttons-right">
-            <img id="right-button" class="hud-button" onclick="rightButton()" src="img/UI/hud/right-arrow.png" alt="">
-            <img id="up-button" class="hud-button" onclick="upButton()" src="img/UI/hud/up-arrow.png" alt="">
-        </div>
-    </div> -->
 </body>
 
 </html>

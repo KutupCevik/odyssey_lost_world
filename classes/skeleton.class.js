@@ -1,5 +1,10 @@
+/**
+ * Class representing a skeleton enemy.
+ * @memberof MovableObject
+ * @extends MovableObject
+ */
 class Skeleton extends MovableObject {
-    y = 265;
+    y = 240;
     height = 180;
     width = 180;
     world;
@@ -37,6 +42,10 @@ class Skeleton extends MovableObject {
         'img/3_enemies/Skeleton/5_dead/Dead-3.png',
     ];
 
+
+    /**
+     * Creates an instance of Skeleton.
+     */
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -47,33 +56,62 @@ class Skeleton extends MovableObject {
         this.speed = 0.15 + Math.random() * 0.25;
     }
 
-    animate() {
-        let sixtyFPS = setInterval(() => {
-            if (!this.isHurt() && !this.isColliding(this.world.character)) {
-                this.moveLeft();
-            }
-            if (this.isDead()) {
-                clearInterval(sixtyFPS);
-            }
-        }, 1000 / 60);
 
+    /**
+     * Initiates the animation for the Skeleton object.
+     */
+    animate() {
+        this.skeletonIsMoving();
+        this.skeletonMovinAnimation();
+    }
+
+
+    /**
+     * Moves the Skeleton object.
+     */
+    skeletonIsMoving() {
+        let sixtyFPS = setInterval(() => {
+            if (this.canMove())
+                this.moveToCharacter(this);
+            if (this.isDead())
+                clearInterval(sixtyFPS);
+        }, 1000 / 60);
+    }
+
+
+    /**
+     * Animates the movement of the Skeleton object.
+     */
+    skeletonMovinAnimation() {
         let move = setInterval(() => {
             if (this.isHurt()) {
                 this.playAnimations(this.IMAGES_HURT);
-            } else
-                if (this.isColliding(this.world.character) && !this.world.character.isDead()) {
-                    this.playAnimations(this.IMAGES_ATTACK);
-                    this.world.hit_sound.play();
-                }
-                else {
-                    this.playAnimations(this.IMAGES_WALKING);
-                }
-
-            if (this.isDead()) {
-                this.world.fallingBones.play();
-                clearInterval(move);
-                this.dead(this.IMAGES_DEAD);
-            }
+            } else if (this.isAttackingCharacter()) {
+                this.playAnimations(this.IMAGES_ATTACK);
+                this.world.hit_sound.play();
+            } else this.playAnimations(this.IMAGES_WALKING);
+            if (this.isDead())
+                this.skeletonDeath(move);
         }, 100);
+    }
+
+
+    /**
+     * Triggers the death animation for the Skeleton object.
+     * @param {number} moveInterval - The interval for the movement animation.
+     */
+    skeletonDeath(moveInterval) {
+        this.world.fallingBones.play();
+        clearInterval(moveInterval);
+        this.dead(this.IMAGES_DEAD);
+    }
+
+
+    /**
+     * Checks if the Skeleton is attacking the character.
+     * @returns {boolean} True if the Skeleton is attacking the character, false otherwise.
+     */
+    isAttackingCharacter() {
+        return this.isColliding(this.world.character) && !this.world.character.isDead();
     }
 }
