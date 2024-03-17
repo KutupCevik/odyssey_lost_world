@@ -44,7 +44,7 @@ function winScreenHTML() {
     return /*html*/`
         <div class="endscreen">
             <span>You Win!</span>
-            <button onclick="backtoStart()">Back to Lobby</button>
+            <button onclick="backtoStart()">Zurück zu Lobby</button>
         </div>
     `;
 }
@@ -57,7 +57,7 @@ function looseScreenHTML() {
     return /*html*/`
     <div class="endscreen">
         <span>You Loose!</span>
-        <button onclick="backtoStart()">Back to Lobby</button>
+        <button onclick="backtoStart()">Zurück zu Lobby</button>
     </div>
 `;
 }
@@ -69,8 +69,8 @@ function looseScreenHTML() {
 function rotatePhoneHTML() {
     return /*html*/`
     <div id="rotate-phone">
-        <span>Rotate your device to play</span>
-        <button onclick="backtoStart()">Back</button>
+        <span>Rotiere dein Gerät,<br>um zu spielen</span>
+        <button onclick="backtoStart()">Zurück</button>
     </div>
     `;
 }
@@ -82,8 +82,8 @@ function rotatePhoneHTML() {
 function keyBindingsHTML() {
     return  /*html*/`
     <div class="story card" onclick="doNotClose(event)">
-        <button onclick="closeCard()">Back</button>
-        <h3>Keyboard</h3>
+        <button onclick="closeCard()">Zurück</button>
+        <h3>Tastatur</h3>
         <div class="card-content flex space-between">
             <div class="flex column gap10">
                 <span>W / ↑ / SPACE</span>
@@ -110,7 +110,7 @@ function keyBindingsHTML() {
                 <span>Springen</span>
                 <span>Links</span>
                 <span>Rechts</span>
-                <span>Hold for Shooting Arrows</span>
+                <span>Zum Pfeile schießen<br>halten</span>
             </div>
         </div>
     </div>
@@ -124,24 +124,32 @@ function keyBindingsHTML() {
 function storyHTML() {
     return  /*html*/`
     <div class="story card" onclick="doNotClose(event)">
-        <button onclick="closeCard()">Back</button>
+        <button onclick="closeCard()">Zurück</button>
         <div class="card-content">
         <p>
-            Talon, a brave young archer, lived in a peaceful village surrounded by dense
-            woodland. When the village was threatened by a dark force, Talon decided to take
-            his fate into his own hands. Inspired by the legends of ancient heroes, he set out
-            to uncover the mystery of the lost world.
+            Talon, ein mutiger junger Bogenschütze, lebte in einem friedlichen Dorf, das von einer dichten
+            Waldlandschaft
+            umgeben war. Als das Dorf von einer finsteren Macht bedroht wurde, entschied sich Talon, sein
+            Schicksal in die
+            Hand zu nehmen. Inspiriert von den Legenden der alten Helden, zog er los, um das Geheimnis der
+            verlorenen Welt
+            zu enthüllen.
             <br>
             <br>
-            On his journey, Talon traversed perilous forests, deep ravines, and ancient ruins,
-            always wary of the dangers lurking in the wilderness. His bow was his faithful weapon
-            as he bravely faced every obstacle that stood in his way.
+            Auf seiner Reise durchquerte Talon gefährliche Wälder, tiefe Schluchten und antike Ruinen, stets auf
+            der Hut vor
+            den Gefahren, die in der Wildnis lauerten. Sein Bogen war seine treue Waffe, während er sich mutig
+            jedem
+            Hindernis stellte, das sich ihm in den Weg stellte.
             <br>
             <br>
-            Eventually, Talon reached the heart of the lost world, where an ancient dragon awaited
-            him, whose sinister presence filled the land with fear and terror. It was up to Talon
-            to prove his skill and bravery as he faced the dragon in the ultimate battle to change
-            the fate of his village and the world.
+            Schließlich erreichte Talon das Herz der verlorenen Welt, wo ein uralter Drache auf ihn wartete,
+            dessen finstere
+            Präsenz das Land in Angst und Schrecken versetzte. Es war an Talon, sein ganzes Können und seinen
+            Mut zu
+            beweisen, während er sich dem Drachen im entscheidenden Kampf stellt um das Schicksal seines Dorfes
+            und der Welt
+            zu verändern.
         </p>
         </div>
     </div>

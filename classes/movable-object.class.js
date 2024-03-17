@@ -132,12 +132,6 @@ class MovableObject extends DrawableObject {
 /**
  * Moves the enemy towards the player.
  */
-    moveToCharacter0() {
-        let previousX = this.x + (this.width / 2);
-        this.x += (this.world.character.x - this.x > 0 ? this.speed : -this.speed);
-        this.otherDirection = this.x - previousX > 0 ? true : false;
-    }
-
     moveToCharacter() {
         this.previousX = this.x;
         this.otherDirection = (this.x + this.width / 2 - (this.world.character.x + this.world.character.width / 2)) > 0 ? false : true;
