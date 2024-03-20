@@ -71,6 +71,8 @@ class Skeleton extends MovableObject {
      */
     skeletonIsMoving() {
         let sixtyFPS = setInterval(() => {
+            if (this.isAttackingCharacter())
+                this.isAttacking = true;
             if (this.canMove())
                 this.moveToCharacter(this);
             if (this.isDead())
@@ -86,9 +88,12 @@ class Skeleton extends MovableObject {
         let move = setInterval(() => {
             if (this.isHurt()) {
                 this.playAnimations(this.IMAGES_HURT);
-            } else if (this.isAttackingCharacter()) {
+            } else if (this.isAttacking) {
                 this.playAnimations(this.IMAGES_ATTACK);
-                this.world.hit_sound.play();
+                if (this.playingSound) {
+                    this.world.hit_sound.play();
+                    this.playingSound = true
+                }
             } else this.playAnimations(this.IMAGES_WALKING);
             if (this.isDead())
                 this.skeletonDeath(move);

@@ -6,6 +6,8 @@ class DrawableObject {
     y = 0;
     height = 200;
     width = 200;
+    isAttacking = false;
+    playingSound = false;
     img;
     imageCache = {};
     currentImage = 0;
@@ -41,6 +43,9 @@ class DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+        if (i == images.length - 1) {
+            this.isAttacking = false;
+        }
     }
 
     /**

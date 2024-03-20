@@ -50,9 +50,9 @@ class MovableObject extends DrawableObject {
      */
     isColliding(mo) {
         return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
-            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
             this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
-            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom &&
+            !(this.y + this.height - this.offset.bottom < mo.y + mo.offset.top - 5);
     }
 
     /**
@@ -143,7 +143,7 @@ class MovableObject extends DrawableObject {
      * @returns {boolean} True if the object can move left, false otherwise.
      */
     canMove() {
-        return !this.isHurt() && !this.isColliding(this.world.character);
+        return !this.isHurt() && !this.isColliding(this.world.character) && !this.isAttacking;
     }
 
     /**

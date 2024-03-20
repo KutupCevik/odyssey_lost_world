@@ -61,6 +61,8 @@ class Plent extends MovableObject {
      */
     plentIsMoving() {
         let sixtyFPS = setInterval(() => {
+            if (this.isAttackingCharacter())
+                this.isAttacking = true;
             if (this.canMove())
                 this.moveToCharacter(this);
             if (this.isDead())
@@ -73,11 +75,15 @@ class Plent extends MovableObject {
      */
     plentMovinAnimation() {
         let move = setInterval(() => {
-            if (this.isAttackingCharacter()) {
+            if (this.isAttacking) {
                 this.playAnimations(this.IMAGES_ATTACK);
-                this.world.hit_sound_plent.play();
+                if (this.playingSound) {
+                    this.world.hit_sound_plent.play();
+                    this.playingSound = true
+                }
+            } else if (this.canMove) {
+                this.playAnimations(this.IMAGES_WALKING);
             }
-            else this.playAnimations(this.IMAGES_WALKING);
             if (this.isDead()) {
                 clearInterval(move);
                 this.dead(this.IMAGES_DEAD);

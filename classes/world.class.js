@@ -172,6 +172,7 @@ class World {
      * @param {MovableObject} enemy - The enemy object that hit the character.
      */
     enemyHitCharacter(enemy) {
+        enemy.currentImage = 0;
         this.character.applyRecoil();
         this.character.hit(20);
         this.healthBar.setPercentage(this.character.energy, this.healthBarImgs);

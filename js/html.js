@@ -218,7 +218,7 @@ function datenschutzHTML() {
             <h2>Kontakt</h2>
             <p>Wenn du Fragen zur Datenschutzerklärung hast, kannst du dich gerne per E-Mail unter <a
                     href='mailto:kutup.cevik@outlook.com'>kutup.cevik&#64;outlook.com</a> an uns wenden.</p>
-            <p>Stand: [Datum der letzten Aktualisierung]</p>
+            <p>Stand: 17.03.2024</p>
         </div>
     </div>
     `;
